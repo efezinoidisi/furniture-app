@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
+/* :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
@@ -14,9 +14,9 @@
     --background-start-rgb: 0, 0, 0;
     --background-end-rgb: 0, 0, 0;
   }
-}
+} */
 
-body {
+/* body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
       to bottom,
@@ -24,4 +24,67 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
+} */
+
+@layer base {
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    @apply font-fira-code
+  }
+}
+
+.spots {
+  position: relative;
+}
+
+.spots::after {
+  position: absolute;
+  content: "";
+  width: 10rem;
+  height: 13rem;
+  top: 50%;
+  right: 0;
+  background-image: linear-gradient(270deg, #C900C1 -7.86%, rgba(201, 0, 193, 0.00) 91.6%);
+  background-position: top;
+  background-repeat: no-repeat;
+  filter: blur(32px);
+  z-index: -1;
+  border-radius: 50%;
+}
+
+@layer components {
+  .page-size {
+    width: 95%;
+    margin-inline: auto;
+    padding-inline: 1rem;
+  }
+
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+  }
+
+  @media screen and (min-width:765px) {
+    .page-size {
+      width: 85%;
+    }
+  }
+
+  @media screen and (min-width:1100px) {
+    .page-size {
+      width: 80%;
+    }
+  }
 }
