@@ -9,6 +9,7 @@ import { ALL_PRODUCTS } from '@/constants/data';
 import { Icons } from '@/lib/icons';
 import { getProduct } from '@/utils/helper-functions';
 import Image from 'next/image';
+import Link from 'next/link';
 
 type Props = {
   params: {
@@ -99,9 +100,12 @@ export default function page(props: Props) {
               product={product}
               className='bg-black border border-black hover:bg-inherit text-white hover:text-inherit px-6 py-2 capitalize w-full'
             />
-            <DefaultButton className='px-6 py-2 capitalize border border-black w-full hover:bg-primary/60 hover:text-white hover:border-0 '>
+            <Link
+              href={'/checkout'}
+              className='px-6 py-2 capitalize border border-black w-full hover:bg-primary/60 hover:text-white hover:border-0  text-center'
+            >
               buy now
-            </DefaultButton>
+            </Link>
           </div>
         </div>
       </section>

@@ -10,7 +10,7 @@ export default function Cart(props: CartItem) {
   const discountedPrice = discount ? price - price * (discount / 100) : price;
   const { removeFromCart } = useCart();
   return (
-    <div className='grid grid-cols-3 gap-x-3 border-b border-primary/30 py-3 relative'>
+    <div className='grid grid-cols-3 gap-x-3 border-b border-grey-300 py-3 relative'>
       <div className='lg:max-h-40 relative col-span-1 row-span-3 border '>
         <Image
           src={image}

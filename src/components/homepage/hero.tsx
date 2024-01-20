@@ -4,7 +4,7 @@ import { Icons } from '@/lib/icons';
 
 export default function Hero() {
   return (
-    <section className='grid md:grid-cols-2 lg:min-h-[80svh] lg:place-content-center lg:py-10 gap-x-16 overflow-y-clip py-5 relative after:content-[""] after:absolute after:top-32 lg:after:top-96 after:w-52 after:h-32 after:bg-spot-gradient after:blur-3xl after:rounded-full after:-left-32 after:-z-10 page-size'>
+    <section className='grid md:grid-cols-2 lg:min-h-[80svh] lg:place-content-center lg:py-10 gap-x-16 overflow-y-clip py-5 relative after:content-[""] after:absolute after:top-96 after:w-40 after:h-32 after:bg-spot-gradient after:blur-3xl after:rounded-full after:-left-32 after:-z-10 page-size'>
       <div className='flex flex-col h-full lg:py-16 items-center text-center xl:text-5xl md:text-start md:pb-20 pb-10'>
         <h1 className=' text-[1.75rem] lg:text-4xl font-bold capitalize  leading-7 md:text-left md:leading-8 lg:text-balance'>
           discover the latest{' '}
@@ -14,11 +14,11 @@ export default function Hero() {
           trends
         </h1>
         <p className='my-4 lg:mt-10 font-inter text-lg md:text-xl lg"text-2xl leading-7 md:leading-8 lg:leading-9 text-balance'>
-          Shop the Latest Fashion Items and Stay ahead of the style game
+          Shop the Latest Furnitures and Stay ahead of the interior design game
         </p>
         <Link
-          href={''}
-          className='bg-black text-white px-5 py-2 flex gap-3 capitalize w-fit md:self-start text-xl'
+          href={'/products'}
+          className='bg-black text-white px-5 py-2 flex gap-3 capitalize w-fit md:self-start text-xl link hover:bg-primary/60 items-center'
         >
           explore more
           <Icons.right />

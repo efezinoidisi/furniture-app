@@ -56,13 +56,11 @@
   border-radius: 50%;
 }
 
-a,
-button {
+.link {
   transition: all .3s ease-in-out;
 }
 
-a:hover,
-button:hover {
+.link:hover {
   transform: scale(1.09, 1.1);
 
 }

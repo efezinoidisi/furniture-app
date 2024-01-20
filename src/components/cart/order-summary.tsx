@@ -5,6 +5,8 @@ import useCart from '../store/contexts/cart-context';
 export default function OrderSummary() {
   const { cart } = useCart();
 
+  if (!cart || cart.length === 0) return null;
+
   const subtotal = cart.reduce(
     (sum, item) => sum + item.price * item.quantity,
     0

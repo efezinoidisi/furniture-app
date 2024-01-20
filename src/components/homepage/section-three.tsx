@@ -7,7 +7,7 @@ export default function SectionThree() {
     <section className='grid md:grid-cols-2 gap-y-4 gap-x-5 page-size relative after:content-[""] after:absolute after:top-32 lg:after:top-96 after:w-52 after:h-32 after:bg-spot-gradient after:blur-3xl after:rounded-full after:-left-32 py-10'>
       <div className='text-center md:text-left flex flex-col gap-y-3'>
         <h3 className='capitalize bg-[url("/assets/images/arrow4.svg")] bg-no-repeat bg-right-bottom bg-[length:4rem] pt-8 w-fit relative text-center md:text-left text-2xl md:text-[2rem] text-pretty font-bold leading-9'>
-          enjoy our latest fashion trends and style
+          enjoy our latest furniture trends and style
           <Image
             src={'/assets/images/ellipse1.svg'}
             alt=''
@@ -19,8 +19,8 @@ export default function SectionThree() {
         </h3>
 
         <p className=' md:text-lg lg:text-xl lg:leading-9 md:leading-8 leading-7'>
-          Shop our curated collection of fashion items and stay ahead of the
-          fashion game
+          Shop our curated collection of furniture items and stay ahead of the
+          style game
         </p>
         <div className='md:mt-14 mb-6 flex flex-col md:flex-row gap-y-3'>
           <div>
@@ -28,7 +28,7 @@ export default function SectionThree() {
               quality
             </h4>
             <p>
-              Our fashion items are crafted with the highest materials and
+              Our furniture items are crafted with the highest wood quality and
               attention to details
             </p>
           </div>

@@ -10,6 +10,9 @@ import {
   Minus,
   ArrowLeft,
   Trash2,
+  X,
+  SlidersHorizontal,
+  Check,
 } from 'lucide-react';
 
 export const Icons = {
@@ -24,4 +27,7 @@ export const Icons = {
   minus: Minus,
   left: ArrowLeft,
   delete: Trash2,
+  close: X,
+  filter: SlidersHorizontal,
+  check: Check,
 };

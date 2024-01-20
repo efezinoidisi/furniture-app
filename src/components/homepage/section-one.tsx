@@ -1,13 +1,13 @@
 'use client';
 
-import { heroProducts, categories } from '@/constants/data';
-import Link from 'next/link';
+import { heroProducts } from '@/constants/data';
 import ProductList from '../product/list';
-import useCategory from '../hooks/useCategory';
+import Category from '../product/category';
+import useSearchParams from '../hooks/use-search-params';
 
 export default function SectionOne() {
-  const { currentCategory, toggleCategory } = useCategory();
-
+  const { searchParams, updateSearchParams } = useSearchParams();
+  const currentCategory = searchParams.get('type') ?? '';
   const filteredProducts = heroProducts.filter((product) =>
     product.label.includes(currentCategory)
   );
@@ -23,31 +23,16 @@ export default function SectionOne() {
       </h2>
       <p className='text-grey-100 text-base md:text-lg lg:text-xl leading-7 lg:leading-8 my-3 text-center md:text-left text-pretty'>
         Stay updated with our informative and engaging blog posts about modern
-        Furniture and Fashion on the industry
+        Furnitures in the industry
       </p>
-      <ul className='flex gap-5 overflow-x-scroll hide-scrollbar my-10 md:overflow-x-clip md:flex-wrap'>
-        {categories.map((category) => {
-          const active = category.value === currentCategory;
-          return (
-            <li
-              key={category.name}
-              role='button'
-              className={`${
-                active
-                  ? 'bg-opacity-100 text-white'
-                  : 'bg-opacity-[0.15] text-black'
-              } bg-black rounded-sl px-3 py-1 cursor-pointer capitalize text-sm md:text-base lg:text-lg  md:px-5 text-nowrap`}
-              onClick={() => toggleCategory(category.value)}
-            >
-              {category.name}
-            </li>
-          );
-        })}
-        <li className='bg-black rounded-sl px-3 py-1 bg-opacity-[0.15] text-black capitalize text-sm md:text-base lg:text-lg md:px-5'>
-          <Link href={''}>more</Link>
-        </li>
-      </ul>
-      <ProductList listItems={filteredProducts} />
+      <Category
+        currentCategory={currentCategory}
+        toggleCategory={updateSearchParams}
+      />
+      <ProductList
+        listItems={filteredProducts}
+        className='md:grid-cols-3 lg:grid-cols-4'
+      />
     </section>
   );
 }

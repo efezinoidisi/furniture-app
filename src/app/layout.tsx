@@ -18,7 +18,7 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body
-        className={`${inter.variable} ${roboto.variable} ${firaCode.variable} font-roboto bg-background overflow-x-clip relative after:content-[""] after:absolute after:top-0  after:size-[9rem] md:after:size-[12rem] lg:after:size-[16rem] after:bg-spot-gradient after:blur-3xl after:rounded-[20rem] after:right-0 after:-z-10`}
+        className={`${inter.variable} ${roboto.variable} ${firaCode.variable} font-roboto bg-background overflow-x-clip relative after:content-[""] after:absolute after:top-0  after:size-[9rem] md:after:size-[13rem] after:bg-spot-gradient after:blur-3xl after:rounded-[20rem] after:right-0 after:-z-10`}
       >
         <Providers>
           <MainNav />

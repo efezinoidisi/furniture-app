@@ -10,7 +10,7 @@ type BreadCrumpProps = {
 export default function BreadCrump({ items }: BreadCrumpProps) {
   const list = [
     {
-      path: '/home',
+      path: '/',
       title: 'home',
     },
     ...items,
