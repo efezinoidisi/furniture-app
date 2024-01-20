@@ -56,6 +56,17 @@
   border-radius: 50%;
 }
 
+a,
+button {
+  transition: all .3s ease-in-out;
+}
+
+a:hover,
+button:hover {
+  transform: scale(1.09, 1.1);
+
+}
+
 @layer components {
   .page-size {
     width: 95%;

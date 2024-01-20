@@ -3,6 +3,7 @@ import NavLinks from './nav-links';
 import Link from 'next/link';
 import { Icons } from '@/lib/icons';
 import DefaultButton from '../buttons/default-button';
+import CartLink from './cart';
 
 export default function MainNav() {
   return (
@@ -29,16 +30,11 @@ export default function MainNav() {
       <div className='flex items-center gap-1 md:gap-3'>
         <Link
           href={'/wishlist'}
-          className='border-primary hover:border text-primary rounded-[2rem] p-2 capitalize '
+          className='text-primary rounded-[2rem] p-2 capitalize '
         >
           <Icons.heart />
         </Link>
-        <Link
-          href={'/cart'}
-          className='hover:border border-primary text-primary rounded-[2rem] px-1 py-2 capitalize '
-        >
-          <Icons.cart />
-        </Link>
+        <CartLink />
         <Link
           href={'/login'}
           className='bg-primary text-white rounded-[2rem] px-3 md:px-5 py-2 capitalize'
@@ -55,16 +51,8 @@ const navigationLinks: {
   title: string;
 }[] = [
   {
-    path: '/shop',
+    path: '/products',
     title: 'shop now',
-  },
-  {
-    path: '/home-furniture',
-    title: 'home furniture',
-  },
-  {
-    path: '/living-room',
-    title: 'living room',
   },
   {
     path: '/about',

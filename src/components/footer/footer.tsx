@@ -5,20 +5,20 @@ import NavLinks from '../navigation/nav-links';
 export default function Footer() {
   const year = new Date().getFullYear();
   return (
-    <footer className='text-grey-100 page-size flex flex-col place-content-center min-h-72 gap-y-10 py-10'>
-      <div className='md:grid md:grid-cols-4 gap-x-10'>
+    <footer className='text-grey-100 page-size flex flex-col place-content-center min-h-72 gap-y-10 py-10 border-t border-grey-300/40 '>
+      <div className='grid md:grid-cols-4 gap-x-10 gap-y-3'>
         <div className='flex flex-col-reverse md:flex-col col-span-2'>
           <Image
             src={'/assets/images/logo.svg'}
             alt='logo'
             width={40}
             height={40}
-            className='w-12'
+            className='w-9 md:w-10 lg:w-11'
           />
 
           <form className='flex flex-col gap-2'>
-            <p className='mb-7 mt-3'>
-              join our newsletter to stay up to date on features and releases.
+            <p className='mb-7 mt-3 text-center md:text-left'>
+              Join our newsletter to stay up to date on features and releases.
             </p>
             <div className='flex gap-2 lg:gap-4'>
               <input
@@ -35,15 +35,15 @@ export default function Footer() {
                 subscribe
               </DefaultButton>
             </div>
-            <p className='leading-5 text-xs text-balance'>
-              By subscribing you agree to with our Privacy Policy and provide
+            <p className='leading-5 text-xs text-balance mt-2 mb-3'>
+              By subscribing you agree with our Privacy Policy and provide
               consent to receive updates from our company.
             </p>
           </form>
         </div>
         <div className='flex justify-between col-span-2 w-full '>
           <div className='col-span-1'>
-            <h5 className='capitalize font-bold text-black mb-3 text-sm'>
+            <h5 className='capitalize font-bold text-black mb-3 text-xs text-nowrap md:text-sm'>
               about us
             </h5>
             <NavLinks
@@ -53,7 +53,7 @@ export default function Footer() {
             />
           </div>
           <div className='col-span-1'>
-            <h5 className='capitalize font-bold text-black mb-3 text-nowrap text-sm'>
+            <h5 className='capitalize font-bold text-black mb-3 text-nowrap md:text-sm text-xs'>
               customer support
             </h5>
             <NavLinks
@@ -63,7 +63,7 @@ export default function Footer() {
             />
           </div>
           <div className='col-span-1'>
-            <h5 className='capitalize font-bold text-black mb-3 text-sm'>
+            <h5 className='capitalize font-bold text-black mb-3 text-xs text-nowrap md:text-sm'>
               follow us
             </h5>
             <NavLinks

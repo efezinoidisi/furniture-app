@@ -3,6 +3,7 @@ import { inter, roboto, firaCode } from './fonts';
 import './globals.css';
 import MainNav from '@/components/navigation/main-nav';
 import Footer from '@/components/footer/footer';
+import Providers from './providers';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -17,10 +18,12 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body
-        className={`${inter.variable} ${roboto.variable} ${firaCode.variable} font-roboto bg-background overflow-x-clip`}
+        className={`${inter.variable} ${roboto.variable} ${firaCode.variable} font-roboto bg-background overflow-x-clip relative after:content-[""] after:absolute after:top-0  after:size-[9rem] md:after:size-[12rem] lg:after:size-[16rem] after:bg-spot-gradient after:blur-3xl after:rounded-[20rem] after:right-0 after:-z-10`}
       >
-        <MainNav />
-        {children}
+        <Providers>
+          <MainNav />
+          {children}
+        </Providers>
         <Footer />
       </body>
     </html>
