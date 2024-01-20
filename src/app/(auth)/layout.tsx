@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-export default function layout({ children }: { children: React.ReactNode }) {
+export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div className='grid md:grid-cols-2 gap-x-10 pb-5'>
       <div className='hidden md:block w-full'>

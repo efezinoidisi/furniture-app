@@ -3,8 +3,6 @@
 import { ALL_PRODUCTS } from '@/constants/data';
 import useSearchParams from '../hooks/use-search-params';
 import Category from '../product/category';
-import { Suspense } from 'react';
-import Ellipsis from '../loaders/ellipsis';
 import Filter from './filter';
 import ProductList from '../product/list';
 
@@ -24,9 +22,7 @@ export default function Products() {
     <>
       <Category currentCategory={type} toggleCategory={updateSearchParams} />
       <section className='grid md:grid-cols-7 gap-x-10'>
-        <Suspense fallback={<Ellipsis />}>
-          <Filter className='hidden md:block md:col-span-2 w-full' />
-        </Suspense>
+        <Filter className='hidden md:block md:col-span-2 w-full' />
         <ProductList
           listItems={filteredProducts}
           className='md:col-span-5 w-full md:grid-cols-2 lg:grid-cols-3'

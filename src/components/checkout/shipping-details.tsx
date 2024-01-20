@@ -1,7 +1,7 @@
 'use client';
 import { Icons } from '@/lib/icons';
 import DefaultButton from '../buttons/default-button';
-import { HTMLInputTypeAttribute, useRef, useState } from 'react';
+import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import useCart from '../store/contexts/cart-context';

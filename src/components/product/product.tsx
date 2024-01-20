@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import DefaultButton from '../buttons/default-button';
 import Link from 'next/link';
 import { ProductType } from '@/types/product';
 import Colors from './colors';
