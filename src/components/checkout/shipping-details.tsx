@@ -143,8 +143,15 @@ const PaymentForm = () => {
     const { value, name } = event.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
+
+  const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+  };
   return (
-    <form className='bg-white rounded-xl py-2 px-4 flex flex-col gap-y-3'>
+    <form
+      className='bg-white rounded-xl py-2 px-4 flex flex-col gap-y-3'
+      onSubmit={handleFormSubmit}
+    >
       <LabelledInput
         id='fullName'
         placeholder='enter your full name'
