@@ -15,7 +15,7 @@ const config: Config = {
         'spot-gradient':
           'linear-gradient(270deg, #C900C1 -7.86%, rgba(201, 0, 193, 0.00) 91.6%)',
         'white-gradient':
-          'linear-gradient(180deg, #EEF2FB 81.18%, rgba(238, 242, 251, 0.00) 100%) linear-gradient(180deg, #EEF2FB 81.18%, rgba(238, 242, 251, 0.00) 100%)',
+          'linear-gradient(180deg, #EEF2FB 81.18%, rgba(238, 242, 251, 0.00) 100%) ,linear-gradient(180deg, #EEF2FB 81.18%, rgba(238, 242, 251, 0.00) 100%)',
       },
       colors: {
         background: '#EEF2FB',
