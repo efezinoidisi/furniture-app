@@ -19,10 +19,10 @@ export default function BreadCrump({ items }: BreadCrumpProps) {
     <Link
       href={path}
       key={title}
-      className='last:pointer-events-none group text-[#ABABAB] last:text-black capitalize hover:text-primary'
+      className='last:pointer-events-none group text-[#ABABAB] last:text-black capitalize hover:text-primary text-sm last:text-base'
     >
       {title} <span className='group-last:hidden'>/</span>
     </Link>
   ));
-  return <div className='flex gap-1'>{content}</div>;
+  return <div className='flex gap-1 items-center'>{content}</div>;
 }

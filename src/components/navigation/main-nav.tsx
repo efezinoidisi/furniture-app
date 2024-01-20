@@ -36,7 +36,7 @@ export default function MainNav() {
       <NavLinks
         navigationLinks={navigationLinks}
         className='lg:flex gap-x-5 items-center hidden'
-        linkStyle='first:text-primary font-bold text-black first:border-b-2 first:border-primary capitalize'
+        linkStyle='first:text-primary font-bold text-black first:border-b-2 first:border-primary capitalize link hover:text-primary/80'
       />
       <div className='flex items-center gap-1 md:gap-3'>
         <Link

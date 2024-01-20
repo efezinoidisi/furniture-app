@@ -12,6 +12,7 @@ export default function Product(props: ProductType) {
       <Link
         href={`/products/${id}`}
         className=' flex flex-col justify-between w-full h-full gap-y-2'
+        prefetch={false}
       >
         <div className='w-full h-40 relative'>
           <Image
