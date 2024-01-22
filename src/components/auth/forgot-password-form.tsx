@@ -2,9 +2,8 @@
 import { useState } from 'react';
 import Input from './input';
 import DefaultButton from '../buttons/default-button';
-import Link from 'next/link';
 
-export default function Login() {
+export default function ForgotPasswordForm() {
   const initialValues = {
     password: '',
     email: '',
@@ -32,19 +31,8 @@ export default function Login() {
         label='email'
         type='email'
       />
-      <Input
-        id='password'
-        placeholder='password'
-        value={formData.password}
-        handleChange={handleChange}
-        label='password'
-        type='password'
-      />
-      <Link href={'/forgot-password'} className='self-end text-primary/80'>
-        forgot password?
-      </Link>
       <DefaultButton className='capitalize bg-primary text-white py-2 link w-full self-center mt-7'>
-        log in
+        send
       </DefaultButton>
     </form>
   );

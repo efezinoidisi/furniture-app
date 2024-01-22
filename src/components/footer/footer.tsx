@@ -20,17 +20,17 @@ export default function Footer() {
             <p className='mb-7 mt-3 text-center md:text-left'>
               Join our newsletter to stay up to date on features and releases.
             </p>
-            <div className='flex gap-2 lg:gap-4'>
+            <div className='flex gap-2 lg:gap-4 bg-white p-1'>
               <input
                 type='email'
                 name='email'
                 id='email'
                 placeholder='enter your email'
-                className='p-3 bg-white outline-none'
+                className='p-3 bg-transparent outline-none w-full placeholder:capitalize'
               />
               <DefaultButton
                 type='submit'
-                className='px-5 py-1 lg:py-2  rounded-sl border-grey-100 border capitalize text-xs'
+                className='px-5 py-1 lg:py-2  rounded-md border-grey-300 border capitalize text-sm bg-background'
               >
                 subscribe
               </DefaultButton>
@@ -91,38 +91,38 @@ export default function Footer() {
 const footerData = {
   aboutUs: [
     {
-      path: '/faq',
+      path: '',
       title: 'FAQ',
     },
     {
-      path: '/contact',
+      path: '',
       title: 'contact',
     },
     {
-      path: '/returns',
+      path: '',
       title: 'returns',
     },
     {
-      path: '/blog',
+      path: '',
       title: 'blog',
     },
     {
-      path: '/shipping',
+      path: '',
       title: 'shipping',
     },
   ],
 
   customerSupport: [
     {
-      path: '/affilates',
+      path: '',
       title: 'affilates',
     },
     {
-      path: '/apple-pay-payments',
+      path: '',
       title: 'apple pay payments',
     },
     {
-      path: '/returns-policy',
+      path: '',
       title: 'returns policy',
     },
   ],
@@ -152,15 +152,15 @@ const footerData = {
 
   bottomLinks: [
     {
-      path: '/privacy-policy',
+      path: '',
       title: 'privacy policy',
     },
     {
-      path: '/terms',
+      path: '',
       title: 'terms of service',
     },
     {
-      path: '/cookies',
+      path: '',
       title: 'cookies settings',
     },
   ],

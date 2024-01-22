@@ -14,6 +14,8 @@ import {
   SlidersHorizontal,
   Check,
   PencilLine,
+  Eye,
+  EyeOff,
 } from 'lucide-react';
 
 export const Icons = {
@@ -32,4 +34,6 @@ export const Icons = {
   filter: SlidersHorizontal,
   check: Check,
   pen: PencilLine,
+  eyeOpen: Eye,
+  eyeClose: EyeOff,
 };

@@ -40,6 +40,9 @@ const config: Config = {
       borderRadius: {
         sl: '2rem',
       },
+      screens: {
+        sl: '500px',
+      },
     },
   },
   plugins: [],

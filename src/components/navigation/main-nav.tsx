@@ -74,7 +74,7 @@ export default function MainNav() {
             <NavLinks
               navigationLinks={navigationLinks}
               className='flex flex-col gap-y-5 items-center'
-              linkStyle='first:text-primary font-bold text-black first:border-b-2 first:border-primary capitalize w-fit'
+              linkStyle='first:text-primary font-bold text-black first:border-b-2 first:border-primary capitalize w-fit hover:text-primary/80'
               handleLinkClick={toggleMenu}
             />
           </div>
