@@ -1,6 +1,11 @@
+'use client';
 import { CartProvider } from '@/components/store/contexts/cart-context';
-import React from 'react';
+import SessionProvider from '@/components/store/contexts/session-context';
 
 export default function Providers({ children }: { children: React.ReactNode }) {
-  return <CartProvider>{children}</CartProvider>;
+  return (
+    <SessionProvider>
+      <CartProvider>{children}</CartProvider>
+    </SessionProvider>
+  );
 }

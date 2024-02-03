@@ -1,125 +1,156 @@
 import { ProductType } from '@/types/product';
 
 export const categories = [
-  {
-    name: 'all furniture',
-    value: '',
-  },
+  // {
+  //   name: 'all furniture',
+  //   id: '0',
+  // },
   {
     name: 'bedroom',
-    value: 'bedroom',
+    id: '1',
   },
   {
     name: 'living room',
-    value: 'living room',
+    id: '2',
   },
   {
-    name: 'home office',
-    value: 'home office',
+    name: 'office',
+    id: '3',
   },
   {
-    name: 'dining table',
-    value: 'dining table',
+    name: 'dining',
+    id: '4',
   },
 ];
 
 export const heroProducts: ProductType[] = [
   {
-    id: 0,
+    id: '0',
     name: 'stylish soft chair',
     image: '/assets/images/stylish-sot-chair.png',
     price: 20,
-    label: 'bedroom dining table',
+    category: {
+      id: '1',
+      name: 'bedrooom',
+    },
     colors: ['#A2F78C', '#ABD1E7', '#CCABE7', '#E7ABD2'],
     promo: 'new',
     description:
       'The Stylish Soft Chair boasts a harmonious blend of modern design and plush comfort. With its sleek lines, ',
-    inStock: true,
+    stock: 10,
+    discount: 0,
   },
   {
-    id: 1,
+    id: '1',
     name: 'modern soft chair',
     image: '/assets/images/modern-soft-chair2.png',
     price: 40,
-    label: 'living room home office',
+    category: {
+      id: '2',
+      name: 'living room',
+    },
     colors: ['#A2F78C', '#ABD1E7', '#CCABE7', '#E7ABD2'],
     promo: 'hot',
     description:
       'The Modern Soft Chair boasts a harmonious blend of modern design and plush comfort. With its sleek lines, ',
-    inStock: false,
+    stock: 5,
+    discount: 0,
   },
   {
-    id: 2,
+    id: '2',
     name: 'comfortable soft chair',
     image: '/assets/images/comfortable-soft-chair.png',
     price: 40,
-    label: 'bedroom home office',
+    category: {
+      name: 'dining',
+      id: '4',
+    },
     colors: ['#A2F78C', '#ABD1E7', '#CCABE7', '#E7ABD2'],
     promo: 'new',
     description:
       'The Comfortable Soft Chair boasts a harmonious blend of modern design and plush comfort. With its sleek lines, ',
-    inStock: true,
+    stock: 2,
+    discount: 0,
   },
   {
-    id: 3,
+    id: '3',
     name: 'new soft chair',
     image: '/assets/images/new-soft-chair.png',
     price: 20,
-    label: 'living room dining table',
+    category: {
+      name: 'dining',
+      id: '4',
+    },
     colors: ['#A2F78C', '#ABD1E7', '#CCABE7', '#E7ABD2'],
     promo: '',
     description:
       'The New Soft Chair boasts a harmonious blend of modern design and plush comfort. With its sleek lines, ',
-    inStock: true,
+    stock: 0,
+    discount: 0,
   },
   {
-    id: 4,
+    id: '4',
     name: 'new light soft chair',
     image: '/assets/images/red-cushion.png',
     price: 80,
-    label: 'living room',
+    category: {
+      name: 'office',
+      id: '3',
+    },
     colors: ['#A2F78C', '#ABD1E7', '#CCABE7', '#E7ABD2'],
     promo: 'new',
     description:
       'The New Light Soft Chair boasts a harmonious blend of modern design and plush comfort. With its sleek lines, ',
-    inStock: true,
+    stock: 20,
     discount: 10,
   },
   {
-    id: 5,
+    id: '5',
     name: 'modern soft chair',
     image: '/assets/images/modern-soft-chair.png',
     price: 32,
-    label: 'living room',
+    category: {
+      name: 'living room',
+      id: '2',
+    },
     colors: ['#A2F78C', '#ABD1E7', '#CCABE7', '#E7ABD2'],
     promo: '',
     description:
       'The Modern Soft Chair boasts a harmonious blend of modern design and plush comfort. With its sleek lines, ',
-    inStock: true,
+    stock: 7,
+    discount: 0,
   },
   {
-    id: 6,
+    id: '6',
     name: 'old modern soft chair',
     image: '/assets/images/old-modern-soft-chair.png',
     price: 70,
-    label: 'living room',
+    category: {
+      name: 'office',
+      id: '3',
+    },
     colors: ['#A2F78C', '#ABD1E7', '#CCABE7', '#E7ABD2'],
     promo: 'trending',
     description:
       'The Old Modern Soft Chair boasts a harmonious blend of modern design and plush comfort. With its sleek lines, ',
-    inStock: true,
+    stock: 50,
+    discount: 0,
   },
   {
-    id: 7,
+    id: '7',
     name: 'stylish soft chair',
     image: '/assets/images/stlish-soft-chair.png',
     price: 20,
-    label: 'living room',
+    category: {
+      name: 'bedroom',
+      id: '1',
+    },
     colors: ['#A2F78C', '#ABD1E7', '#CCABE7', '#E7ABD2'],
     promo: '',
     description:
       'The Stylish Soft Chair boasts a harmonious blend of modern design and plush comfort. With its sleek lines, ',
-    inStock: true,
+    stock: 9,
+    discount: 0,
   },
 ];
 

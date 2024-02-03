@@ -7,9 +7,10 @@ import useSearchParams from '../hooks/use-search-params';
 
 type FilterProps = {
   className: string;
+  categories: string[];
 };
 
-export default function Filter({ className }: FilterProps) {
+export default function Filter({ className, categories }: FilterProps) {
   const { searchParams, updateSearchParams } = useSearchParams();
 
   const items: Wrapper[] = [
@@ -17,8 +18,9 @@ export default function Filter({ className }: FilterProps) {
       title: 'category',
       list: categories,
       tab: searchParams.get('category') ?? '',
-      listStyles: '',
+      listStyles: 'flex gap-1 flex-wrap md:flex-nowrap md:flex-col',
       label: 'category',
+      isOpen: true,
     },
     {
       title: 'color family',
@@ -27,6 +29,7 @@ export default function Filter({ className }: FilterProps) {
       listStyles: 'flex gap-1 flex-wrap',
       label: 'color',
       type: 'color',
+      isOpen: false,
     },
     {
       title: 'price',
@@ -35,6 +38,7 @@ export default function Filter({ className }: FilterProps) {
       listStyles: 'flex flex-wrap',
       label: 'price',
       type: 'price',
+      isOpen: false,
     },
   ];
 
@@ -54,6 +58,7 @@ type Wrapper = {
   type?: 'default' | 'color' | 'price';
   tab: string;
   label: string;
+  isOpen: boolean;
 };
 
 const FilterWrapper = ({
@@ -63,9 +68,10 @@ const FilterWrapper = ({
   type = 'default',
   listStyles,
   label,
+  isOpen,
 }: Wrapper) => {
   const { updateSearchParams } = useSearchParams();
-  const [showContent, setShowContent] = useState(true);
+  const [showContent, setShowContent] = useState(isOpen);
   const toggleContent = () => {
     setShowContent((prev) => !prev);
   };
@@ -75,16 +81,12 @@ const FilterWrapper = ({
         onClick={toggleContent}
         className='flex items-center justify-between w-full border py-2 px-1 mb-2'
       >
-        <span className='capitalize font-medium font-inter text-lg'>
-          {title}
-        </span>
-        <Icons.down
-          className={`${showContent ? 'rotate-180' : 'rotate-[270deg]'}`}
-        />
+        <span className='capitalize font-medium font-inter'>{title}</span>
+        <Icons.down className={`${showContent ? 'rotate-180' : ''}`} />
       </DefaultButton>
       {showContent ? (
         <ul className={`px-3 py-1 text-grey-100 ${listStyles}`}>
-          {list.map((item) => {
+          {list?.map((item) => {
             const activeCategory = item === tab;
             const colors =
               type === 'color'
@@ -97,9 +99,11 @@ const FilterWrapper = ({
                 key={item}
                 onClick={() => updateSearchParams(label, item)}
                 className={`${
-                  activeCategory ? 'bg-grey-300 rounded-2xl' : ''
-                } relative capitalize cursor-pointer ${
-                  type === 'color' ? 'size-7 rounded-full' : 'w-fit px-5 py-1'
+                  activeCategory
+                    ? 'text-primary/60 font-semibold rounded-2xl'
+                    : ''
+                } relative capitalize cursor-pointer text-sm ${
+                  type === 'color' ? 'size-7 rounded-2xl' : 'w-fit px-1 py-1'
                 }`}
                 style={colors}
               >
@@ -121,4 +125,4 @@ const FilterWrapper = ({
   );
 };
 
-const categories = ['wardropes', 'beds', 'mattresses', 'dressers', 'drawers'];
+// const categories = ['wardropes', 'beds', 'mattresses', 'dressers', 'drawers'];

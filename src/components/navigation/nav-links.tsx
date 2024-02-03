@@ -6,6 +6,7 @@ type NavLinksProps = {
     icon?: string;
     path: string;
     title: string;
+    isVisible?: boolean;
   }[];
   className?: string;
   linkStyle?: string;
@@ -20,7 +21,8 @@ export default function NavLinks({
 }: NavLinksProps) {
   return (
     <nav className={className}>
-      {navigationLinks.map(({ path, title }) => {
+      {navigationLinks.map(({ path, title, isVisible = true }) => {
+        if (!isVisible) return null;
         return (
           <Link
             href={path}

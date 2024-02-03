@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 export default function SectionFour() {
   return (
-    <section className='grid md:grid-cols-2 gap-y-4 md:gap-x-7 lg:gap-x-20 relative bg-white px-5 md:px-10 lg:px-28 py-10 place-content-center md:h-dvh'>
+    <section className='grid md:grid-cols-2 gap-y-4 md:gap-x-7 lg:gap-x-20 relative bg-white px-5 md:px-10 lg:px-28 py-10 place-content-center lg:h-dvh'>
       <div className='row-span-2 min-h-[22rem] md:min-h-[30rem] lg:min-h-[35rem]'>
         <Image
           src={'/assets/images/happy-girl.png'}

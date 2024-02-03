@@ -52,13 +52,13 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     });
   };
 
-  const increaseItemQuantity = (id: number) => {
+  const increaseItemQuantity = (id: string) => {
     dispatch({
       type: QuantityAction.INCREASE_QUANTITY,
       payload: id,
     });
   };
-  const decreaseItemQuantity = (id: number) => {
+  const decreaseItemQuantity = (id: string) => {
     dispatch({
       type: QuantityAction.REDUCE_QUANTITY,
       payload: id,

@@ -9,12 +9,17 @@ import Filter from './filter';
 import Overlay from '../shared/overlay';
 import Ellipsis from '../loaders/ellipsis';
 
-export default function Top() {
+type TopProps = {
+  categories: string[];
+};
+
+export default function Top({ categories }: TopProps) {
   const [showFilter, setShowFilter] = useState(false);
 
   const toggleFilter = () => {
     setShowFilter((prev) => !prev);
   };
+
   return (
     <>
       <Back />
@@ -39,7 +44,7 @@ export default function Top() {
               </DefaultButton>
             </div>
             <Suspense fallback={<Ellipsis />}>
-              <Filter className='' />
+              <Filter className='' categories={categories} />
             </Suspense>
           </div>
         </>

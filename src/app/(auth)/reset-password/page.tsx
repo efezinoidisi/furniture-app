@@ -2,14 +2,18 @@ import ResetPasswordForm from '@/components/auth/reset-password-form';
 
 type Props = {
   searchParams: {
-    email: string;
+    code: string;
   };
 };
 
 export default function page(props: Props) {
   const {
-    searchParams: { email },
+    searchParams: { code = '' },
   } = props;
+
+  if (!code) {
+    throw new Error('invalid reset link');
+  }
 
   return (
     <main className='flex flex-col justify-center w-3/4 mx-auto gap-2'>

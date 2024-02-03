@@ -1,14 +1,19 @@
+export type CategoryType = {
+  id: string;
+  name: string;
+};
+
 export type ProductType = {
-  id: number;
+  id: string;
   name: string;
   image: string;
   price: number;
-  label: string;
+  category: CategoryType;
   colors: string[];
   promo: string;
   description: string;
-  inStock: boolean;
-  discount?: number;
+  stock: number;
+  discount: number;
 };
 
 export type CartItem = ProductType & {

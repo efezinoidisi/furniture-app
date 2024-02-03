@@ -4,6 +4,7 @@ import './globals.css';
 import MainNav from '@/components/navigation/main-nav';
 import Footer from '@/components/footer/footer';
 import Providers from './providers';
+import { Toaster } from 'react-hot-toast';
 
 export const metadata: Metadata = {
   title: 'ZFurniture',
@@ -24,8 +25,9 @@ export default function RootLayout({
         <Providers>
           <MainNav />
           {children}
+          <Footer />
+          <Toaster />
         </Providers>
-        <Footer />
       </body>
     </html>
   );

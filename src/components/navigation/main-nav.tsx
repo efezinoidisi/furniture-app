@@ -7,13 +7,41 @@ import DefaultButton from '../buttons/default-button';
 import CartLink from './cart';
 import { useState } from 'react';
 import Overlay from '../shared/overlay';
+import { readUserSession } from '@/lib/actions/user';
+import Logout from './logout';
+import { useSession } from '../store/contexts/session-context';
 
 export default function MainNav() {
   const [showMenu, setShowMenu] = useState(false);
+  const { isSignedIn } = useSession();
 
   const toggleMenu = () => {
     setShowMenu((prev) => !prev);
   };
+
+  const navigationLinks: {
+    path: string;
+    title: string;
+    isVisible?: boolean;
+  }[] = [
+    {
+      path: '/products',
+      title: 'shop now',
+    },
+    {
+      path: '',
+      title: 'about us',
+    },
+    {
+      path: '',
+      title: 'contact us',
+    },
+    {
+      path: '/signup',
+      title: 'sign up',
+      isVisible: !isSignedIn,
+    },
+  ];
   return (
     <header className='flex justify-between py-10 w-11/12 lg:w-4/5 mx-auto '>
       <div className='flex gap-3 md:gap-7'>
@@ -46,18 +74,22 @@ export default function MainNav() {
           <Icons.heart className='group-hover:fill-white' />
         </Link>
         <CartLink />
-        <Link
-          href={'/login'}
-          className='bg-primary text-white rounded-[2rem] px-3 md:px-5 py-2 capitalize link hover:bg-white hover:text-primary border border-primary'
-        >
-          login
-        </Link>
+        {isSignedIn ? (
+          <Logout />
+        ) : (
+          <Link
+            href={'/login'}
+            className='bg-primary text-white rounded-[2rem] px-3 md:px-5 py-2 capitalize link hover:bg-white hover:text-primary border border-primary'
+          >
+            login
+          </Link>
+        )}
       </div>
 
       {showMenu ? (
         <>
           <Overlay handleClick={toggleMenu} />
-          <div className='fixed inset-y-0 bg-white-gradient left-0 w-3/4 py-10 px-5 rounded-tr-sl z-50 md:w-1/2 md:px-10 lg:hidden'>
+          <div className='fixed inset-y-0 bg-white-gradient left-0 w-3/4 py-10 px-5 rounded-tr-sl z-[100] md:w-1/2 md:px-10 lg:hidden'>
             <div className='flex items-center justify-between w-full mb-6'>
               {' '}
               <Image
@@ -83,25 +115,3 @@ export default function MainNav() {
     </header>
   );
 }
-
-const navigationLinks: {
-  path: string;
-  title: string;
-}[] = [
-  {
-    path: '/products',
-    title: 'shop now',
-  },
-  {
-    path: '',
-    title: 'about us',
-  },
-  {
-    path: '',
-    title: 'contact us',
-  },
-  {
-    path: '/signup',
-    title: 'sign up',
-  },
-];

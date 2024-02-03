@@ -23,8 +23,8 @@ export default function Footer() {
             <div className='flex gap-2 lg:gap-4 bg-white p-1'>
               <input
                 type='email'
-                name='email'
-                id='email'
+                name='subscribe'
+                id='subscribe'
                 placeholder='enter your email'
                 className='p-3 bg-transparent outline-none w-full placeholder:capitalize'
               />

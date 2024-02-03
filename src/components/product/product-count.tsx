@@ -4,7 +4,7 @@ import DefaultButton from '../buttons/default-button';
 import useCart from '../store/contexts/cart-context';
 
 type ProductCountProps = {
-  id: number;
+  id: string;
 };
 
 export default function ProductCount({ id }: ProductCountProps) {

@@ -17,7 +17,7 @@ type UpdateItem = {
 
 type UpdateQuantity = {
   type: QuantityAction;
-  payload: number;
+  payload: string;
 };
 
 type UpdateList = {

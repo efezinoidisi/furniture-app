@@ -7,6 +7,7 @@ import ProductCount from '@/components/product/product-count';
 import Share from '@/components/product/share';
 import { ALL_PRODUCTS } from '@/constants/data';
 import { Icons } from '@/lib/icons';
+import { ProductType } from '@/types/product';
 import { getProduct } from '@/utils/helper-functions';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -17,12 +18,12 @@ type Props = {
   };
 };
 
-export default function page(props: Props) {
+export default async function page(props: Props) {
   const { params } = props;
 
   const { productId } = params;
 
-  const product = getProduct(+productId, ALL_PRODUCTS) ?? null;
+  const product = (await getProduct(productId)) ?? null;
 
   if (!product) {
     throw new Error('product not found');
@@ -77,27 +78,27 @@ export default function page(props: Props) {
             <span className='font-bold self-center text-2xl md:text-3xl lg:text-4xl'>{`$${discountedPrice?.toFixed(
               2
             )}`}</span>
-            <span
-              className={`${
-                product?.discount ? 'line-through' : ''
-              } self-start text-grey-100 text-base`}
-            >{`$${product.price?.toFixed(2)}`}</span>
+            {product.discount ? (
+              <span
+                className={`line-through self-start text-grey-100 text-base`}
+              >{`$${product.price?.toFixed(2)}`}</span>
+            ) : null}
             {product?.discount ? (
               <span className='bg-primary text-white rounded-full px-2 py-3 ml-auto'>{`-${product.discount}%`}</span>
             ) : null}
           </p>
           <span
             className={`self-end px-2 py-1 rounded-3xl capitalize bg-[#DBDEE4] ${
-              product.inStock ? 'text-[#0DB03A]' : 'text-pink-600'
+              product.stock ? 'text-[#0DB03A]' : 'text-pink-600'
             }`}
           >
-            {product.inStock ? 'in stock' : 'sold out'}
+            {product.stock ? 'in stock' : 'sold out'}
           </span>
           <Colors colors={product.colors} />
           <ProductCount id={product.id} />
           <div className='flex items-center gap-5'>
             <AddToCart
-              product={product}
+              product={product as ProductType}
               className='bg-black border border-black hover:bg-inherit text-white hover:text-inherit px-6 py-2 capitalize w-full'
             />
             <Link

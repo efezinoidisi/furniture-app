@@ -3,49 +3,79 @@ import { useState } from 'react';
 import Input from './input';
 import DefaultButton from '../buttons/default-button';
 import Link from 'next/link';
+import { SignInSchema } from '@/types/schemas';
+import { z } from 'zod';
+import { signInWithEmailAndPassword } from '@/lib/actions/auth';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import FormField from '../shared/form-field';
+import toast from 'react-hot-toast';
+import GoogleAuthBtn from './google-auth-btn';
+
+type LoginFields = z.infer<typeof SignInSchema>;
 
 export default function Login() {
   const initialValues = {
     password: '',
     email: '',
   };
-  const [formData, setFormData] = useState(initialValues);
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { value, name } = event.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm({
+    resolver: zodResolver(SignInSchema),
+    defaultValues: initialValues,
+  });
+  const handleFormSubmit = handleSubmit(async (data) => {
+    try {
+      const response = await signInWithEmailAndPassword(data);
+      const res = JSON.parse(response);
+      console.log(res);
+      if (res?.error) {
+        toast.error(res.error.message);
+      } else {
+        toast.success('signed in!');
+      }
+    } catch (error) {}
+  });
 
-  const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-  };
   return (
     <form
       className='flex flex-col gap-y-3 sl:w-3/4 md:w-5/6 sl:mx-auto'
       onSubmit={handleFormSubmit}
     >
-      <Input
-        id='email'
+      <FormField
+        fieldName='email'
+        register={register}
+        error={errors.email}
         placeholder='email'
-        value={formData.email}
-        handleChange={handleChange}
-        label='email'
         type='email'
       />
-      <Input
-        id='password'
+      <FormField
+        fieldName='password'
+        register={register}
+        error={errors.password}
         placeholder='password'
-        value={formData.password}
-        handleChange={handleChange}
-        label='password'
         type='password'
       />
       <Link href={'/forgot-password'} className='self-end text-primary/80'>
         forgot password?
       </Link>
-      <DefaultButton className='capitalize bg-primary text-white py-2 link w-full self-center mt-7'>
+      <DefaultButton className='capitalize bg-primary text-white py-3 link w-full self-center '>
         log in
       </DefaultButton>
+      <span className='relative border border-black/50 after:content-["or"] after:absolute after:top-1/2 after:-translate-y-1/2 after:bg-background after:px-2 after:left-1/2 after:-translate-x-1/2 after:w-fit my-4' />
+      <div>
+        <GoogleAuthBtn />
+        <DefaultButton
+          className='flex items-center gap-3 border w-full justify-center py-3 text-primary border-primary mt-3 bg-background capitalize'
+          type='button'
+        >
+          test user
+        </DefaultButton>
+      </div>
     </form>
   );
 }

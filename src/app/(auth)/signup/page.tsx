@@ -1,7 +1,17 @@
 import SignupForm from '@/components/auth/signup-form';
+import { redirectIfSession } from '@/utils/helper-functions';
 import Link from 'next/link';
 
-export default function page() {
+type SignUpProps = {
+  searchParams: { from?: string };
+};
+
+export default async function SignUpPage(props: SignUpProps) {
+  const {
+    searchParams: { from = '/' },
+  } = props;
+
+  await redirectIfSession(from);
   return (
     <main className='flex flex-col justify-center w-3/4 mx-auto gap-2'>
       <h2 className='text-center text-xl font-bold font-fira-code md:text-2xl'>

@@ -11,7 +11,7 @@ type AddToCartProps = {
 export default function AddToCart({ product, className }: AddToCartProps) {
   const { addToCart, cart, removeFromCart } = useCart();
 
-  const checkCart = (id: number) => {
+  const checkCart = (id: string) => {
     const product = cart.find((item) => item.id === id) ?? null;
     return product ? true : false;
   };
@@ -25,7 +25,7 @@ export default function AddToCart({ product, className }: AddToCartProps) {
 
   return (
     <DefaultButton type='button' className={className} onClick={addItemToCart}>
-      {isItemInCart ? 'remove' : 'add to cart'}
+      {isItemInCart ? 'Remove' : 'Add to Cart'}
     </DefaultButton>
   );
 }
