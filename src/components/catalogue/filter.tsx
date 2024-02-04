@@ -21,6 +21,7 @@ export default function Filter({ className, categories }: FilterProps) {
       listStyles: 'flex gap-1 flex-wrap md:flex-nowrap md:flex-col',
       label: 'category',
       isOpen: true,
+      defaultValue: '',
     },
     {
       title: 'color family',
@@ -30,6 +31,7 @@ export default function Filter({ className, categories }: FilterProps) {
       label: 'color',
       type: 'color',
       isOpen: false,
+      defaultValue: '',
     },
     {
       title: 'price',
@@ -39,6 +41,7 @@ export default function Filter({ className, categories }: FilterProps) {
       label: 'price',
       type: 'price',
       isOpen: false,
+      defaultValue: '1000',
     },
   ];
 
@@ -59,6 +62,7 @@ type Wrapper = {
   tab: string;
   label: string;
   isOpen: boolean;
+  defaultValue: string;
 };
 
 const FilterWrapper = ({
@@ -69,6 +73,7 @@ const FilterWrapper = ({
   listStyles,
   label,
   isOpen,
+  defaultValue,
 }: Wrapper) => {
   const { updateSearchParams } = useSearchParams();
   const [showContent, setShowContent] = useState(isOpen);
@@ -94,10 +99,16 @@ const FilterWrapper = ({
                     backgroundColor: item,
                   }
                 : {};
+
             return (
               <li
                 key={item}
-                onClick={() => updateSearchParams(label, item)}
+                onClick={() =>
+                  updateSearchParams(
+                    label,
+                    activeCategory ? defaultValue : item
+                  )
+                }
                 className={`${
                   activeCategory
                     ? 'text-primary/60 font-semibold rounded-2xl'

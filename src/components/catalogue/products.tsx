@@ -16,11 +16,12 @@ export default function Products({ categories }: ProductsProps) {
 
   const category = searchParams.get('category') ?? '';
   const color = searchParams.get('color') ?? '';
-  const price = searchParams.get('price') ?? '0';
+  const price = searchParams.get('price') ?? '1000';
   const type = searchParams.get('type') ?? '';
 
   let filteredProducts = ALL_PRODUCTS.filter(
-    (product) => product.category.name.includes(type) && product.price <= +price
+    (product) =>
+      product.category.name.includes(category) && product.price <= +price
     // &&product.colors.includes(color)
   );
 
