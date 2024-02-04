@@ -4,50 +4,47 @@ import ProductCount from '../product/product-count';
 import DefaultButton from '../buttons/default-button';
 import { Icons } from '@/lib/icons';
 import useCart from '../store/contexts/cart-context';
+import ProductPrice from '../shared/product-price';
+import { calculateDiscount } from '@/utils/helper-functions';
 
 export default function Cart(props: CartItem) {
-  const { name, id, price, discount, image } = props;
-  const discountedPrice = discount ? price - price * (discount / 100) : price;
+  const { name, price, discount, image, id, quantity } = props;
+
   const { removeFromCart } = useCart();
   return (
-    <div className='grid grid-cols-3 gap-x-3 border-b border-grey-300 py-3 relative bg-white'>
-      <div className='lg:max-h-40 relative col-span-1 row-span-3 '>
-        <Image
-          src={image}
-          alt={name}
-          width={400}
-          height={500}
-          className='object-cover object-center aspect-square w-full h-full rounded-2xl'
-          unoptimized
-        />
-      </div>
-      <div className='col-span-2 md:col-span-1'>
+    <div className='grid grid-cols-3 gap-x-3 px-2 rounded-md border-grey-300 py-3 relative bg-white/90'>
+      <Image
+        src={image}
+        alt={name}
+        width={400}
+        height={500}
+        className='border-grey-200/50 border aspect-square w-20 rounded-2xl'
+        unoptimized
+      />
+
+      <div>
         <h3 className='truncate capitalize font-bold'>{name}</h3>
+        <ProductPrice price={price} discount={discount} />
         <ProductCount id={id} />
       </div>
-
-      <div className='col-start-2 row-start-3 flex items-center justify-between w-full col-span-2 md:justify-start md:gap-7 md:col-start-3 md:flex-col'>
-        <p className='flex gap-2 py-3 items-center'>
-          <span className='font-bold self-center text-xl md:text-2xl lg:text-3xl'>{`$${discountedPrice?.toFixed(
-            2
-          )}`}</span>
-          <span
-            className={`${
-              discount ? 'line-through' : ''
-            } self-start text-grey-100 text-sm md:text-base`}
-          >{`$${price?.toFixed(2)}`}</span>
-          {discount ? (
-            <span className='bg-primary text-white rounded-full px-2 py-3 ml-auto'>{`-${discount}%`}</span>
-          ) : null}
-        </p>
+      <div className='flex items-end justify-between flex-col w-full '>
         <DefaultButton
           onClick={() => removeFromCart(props)}
-          className='group w-fit absolute top-3 right-3'
+          className='group w-fit'
           id='remove'
           aria-label='remove item from cart'
         >
           <Icons.close className='group-hover:text-primary' />
         </DefaultButton>
+
+        <p className='flex flex-col items-center border px-2 bg-white'>
+          <span className='capitalize font-medium'>subtotal</span>
+
+          <span>
+            $
+            {(discount ? calculateDiscount(price, discount) : price) * quantity}
+          </span>
+        </p>
       </div>
     </div>
   );

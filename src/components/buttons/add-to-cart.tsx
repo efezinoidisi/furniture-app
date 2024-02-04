@@ -2,30 +2,29 @@
 import { ProductType } from '@/types/product';
 import DefaultButton from './default-button';
 import useCart from '../store/contexts/cart-context';
+import { Icons } from '@/lib/icons';
 
 type AddToCartProps = {
   product: ProductType;
   className: string;
+  showText?: boolean;
 };
 
-export default function AddToCart({ product, className }: AddToCartProps) {
-  const { addToCart, cart, removeFromCart } = useCart();
-
-  const checkCart = (id: string) => {
-    const product = cart.find((item) => item.id === id) ?? null;
-    return product ? true : false;
-  };
-
-  const isItemInCart = checkCart(product.id);
+export default function AddToCart({
+  product,
+  className,
+  showText = false,
+}: AddToCartProps) {
+  const { addToCart, cart } = useCart();
 
   const addItemToCart = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    isItemInCart ? removeFromCart(product) : addToCart(product);
+    addToCart(product);
   };
 
   return (
     <DefaultButton type='button' className={className} onClick={addItemToCart}>
-      {isItemInCart ? 'Remove' : 'Add to Cart'}
+      {showText ? 'Add to cart' : <Icons.cart size={20} />}
     </DefaultButton>
   );
 }

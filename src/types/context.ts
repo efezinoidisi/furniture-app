@@ -7,6 +7,8 @@ export type CartContextType = {
   removeFromCart: (product: ProductType) => void;
   increaseItemQuantity: (id: string) => void;
   decreaseItemQuantity: (id: string) => void;
+  totalItemsInCart: () => number;
+  clearCart: () => void;
 };
 
 export type SessionContextType = {

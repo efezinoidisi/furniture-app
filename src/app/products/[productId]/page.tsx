@@ -5,6 +5,7 @@ import DefaultButton from '@/components/buttons/default-button';
 import Colors from '@/components/product/colors';
 import ProductCount from '@/components/product/product-count';
 import Share from '@/components/product/share';
+import ProductPrice from '@/components/shared/product-price';
 import { ALL_PRODUCTS } from '@/constants/data';
 import { Icons } from '@/lib/icons';
 import { ProductType } from '@/types/product';
@@ -39,9 +40,6 @@ export default async function page(props: Props) {
     },
   ];
 
-  const discountedPrice = product.discount
-    ? product.price - product.price * (product?.discount / 100)
-    : product.price;
   return (
     <main className='page-size flex flex-col gap-y-3 md:gap-y-5 lg:gap-y-7 mt-7 pb-10'>
       <Back />
@@ -74,19 +72,7 @@ export default async function page(props: Props) {
           <p className='text-sm md:text-base leading-7 text-[#5e5d6c8e]'>
             {product.description}
           </p>
-          <p className='flex gap-5 py-3 items-center'>
-            <span className='font-bold self-center text-2xl md:text-3xl lg:text-4xl'>{`$${discountedPrice?.toFixed(
-              2
-            )}`}</span>
-            {product.discount ? (
-              <span
-                className={`line-through self-start text-grey-100 text-base`}
-              >{`$${product.price?.toFixed(2)}`}</span>
-            ) : null}
-            {product?.discount ? (
-              <span className='bg-primary text-white rounded-full px-2 py-3 ml-auto'>{`-${product.discount}%`}</span>
-            ) : null}
-          </p>
+          <ProductPrice price={product.price} discount={product.discount} />
           <span
             className={`self-end px-2 py-1 rounded-3xl capitalize bg-[#DBDEE4] ${
               product.stock ? 'text-[#0DB03A]' : 'text-pink-600'
@@ -100,9 +86,10 @@ export default async function page(props: Props) {
             <AddToCart
               product={product as ProductType}
               className='bg-black border border-black hover:bg-inherit text-white hover:text-inherit px-6 py-2 capitalize w-full'
+              showText
             />
             <Link
-              href={'/checkout'}
+              href={`/checkout?id=${product.id}`}
               className='px-6 py-2 capitalize border border-black w-full hover:bg-primary/60 hover:text-white hover:border-0  text-center'
             >
               buy now

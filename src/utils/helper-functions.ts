@@ -56,3 +56,7 @@ export async function redirectIfSession(to: string = '/') {
     redirect(to);
   }
 }
+
+export function calculateDiscount(price: number, discount: number = 0) {
+  return discount ? price - price * (discount / 100) : price;
+}

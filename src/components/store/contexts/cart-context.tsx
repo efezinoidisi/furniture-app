@@ -65,6 +65,12 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     });
   };
 
+  const totalItemsInCart = () =>
+    cart.reduce((sum, item) => sum + item.quantity, 0);
+
+  const clearCart = () => {
+    dispatch({ type: 'UPDATE_LIST', payload: [] });
+  };
   // global context values
   const contextValue = {
     cart,
@@ -72,6 +78,8 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     removeFromCart,
     increaseItemQuantity,
     decreaseItemQuantity,
+    totalItemsInCart,
+    clearCart,
   };
 
   return (

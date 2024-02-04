@@ -16,6 +16,8 @@ import {
   PencilLine,
   Eye,
   EyeOff,
+  ShoppingBag,
+  CircleUser,
 } from 'lucide-react';
 
 export const Icons = {
@@ -36,4 +38,6 @@ export const Icons = {
   pen: PencilLine,
   eyeOpen: Eye,
   eyeClose: EyeOff,
+  bag: ShoppingBag,
+  person: CircleUser,
 };

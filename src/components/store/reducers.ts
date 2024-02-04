@@ -10,6 +10,16 @@ export function cartReducer(state: StateType, action: CartActionType) {
 
   switch (type) {
     case CartAction.ADD_TO_CART: {
+      const cartItem = state.find((item) => item.id === payload.id);
+
+      if (cartItem) {
+        return state.map((product) => {
+          if (product.id === payload.id) {
+            return { ...product, quantity: product.quantity + 1 };
+          }
+          return product;
+        });
+      }
       return [{ ...payload, quantity: 1 }, ...state];
     }
     case CartAction.REMOVE_FROM_CART: {
