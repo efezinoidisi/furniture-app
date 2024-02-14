@@ -59,7 +59,6 @@ export default function SignupForm() {
         register={register}
         error={errors.username}
         placeholder='username'
-        label='username'
         id='username'
       />
       <FormField

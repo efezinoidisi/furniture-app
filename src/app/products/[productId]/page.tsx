@@ -5,6 +5,7 @@ import DefaultButton from '@/components/buttons/default-button';
 import Colors from '@/components/product/colors';
 import ProductCount from '@/components/product/product-count';
 import Share from '@/components/product/share';
+import Similar from '@/components/product/similar';
 import ProductPrice from '@/components/shared/product-price';
 import { ALL_PRODUCTS } from '@/constants/data';
 import { Icons } from '@/lib/icons';
@@ -69,9 +70,6 @@ export default async function page(props: Props) {
           <h3 className='capitalize font-bold text-2xl md:text-3xl lg:text-[2rem] font-fira-code'>
             {product.name}
           </h3>
-          <p className='text-sm md:text-base leading-7 text-[#5e5d6c8e]'>
-            {product.description}
-          </p>
           <ProductPrice price={product.price} discount={product.discount} />
           <span
             className={`self-end px-2 py-1 rounded-3xl capitalize bg-[#DBDEE4] ${
@@ -95,8 +93,32 @@ export default async function page(props: Props) {
               buy now
             </Link>
           </div>
+          <div>
+            <ul className='flex flex-wrap gap-2'>
+              {product.category.map((item) => (
+                <li
+                  key={item.name}
+                  className='bg-grey-300/70 rounded-xl py-1 px-2'
+                >
+                  {item.name}
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </section>
+
+      <section>
+        <h3 className='capitalize font-semibold text-lg'>product details</h3>
+        <p className='text-base text-[#5e5d6c] leading-8'>
+          {product.description}
+        </p>
+      </section>
+
+      <Similar
+        categories={product.category.map((cat) => cat.name)}
+        productId={product.id}
+      />
     </main>
   );
 }

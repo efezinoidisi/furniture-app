@@ -5,8 +5,47 @@ import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import useCart from '../store/contexts/cart-context';
+import { BillingInfoSchema } from '@/types/schemas';
+import { z } from 'zod';
+import {
+  FieldError,
+  FieldErrors,
+  Path,
+  UseFormRegister,
+  useForm,
+} from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import FormField from '../shared/form-field';
+
+type FieldsType = z.infer<typeof BillingInfoSchema>;
 
 export default function ShippingDetails() {
+  const initialValues: FieldsType = {
+    full_name: '',
+    address: '',
+    appartment: '',
+    city: '',
+    phone_number: '',
+    email: '',
+    cash_on_delivery: false,
+    card: '',
+  };
+
+  const [formSteps, setFormSteps] = useState(0);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+    setValue,
+  } = useForm({
+    resolver: zodResolver(BillingInfoSchema),
+    defaultValues: initialValues,
+  });
+
+  const handleFormSubmit = handleSubmit(async (data) => {
+    console.log(data);
+  });
   const { cart } = useCart();
   if (!cart || cart.length === 0) {
     return (
@@ -21,14 +60,114 @@ export default function ShippingDetails() {
       </div>
     );
   }
+
+  const isStepComplete = (fields: string[]) => {
+    const errorsList = Object.keys(errors);
+    return fields.every((field) => errorsList.includes(field));
+  };
+  const check = isStepComplete(['full_name', 'card', 'email']);
+  console.log(check, 'check', errors);
+  const fieldItems = getFieldList(errors);
   return (
-    <div className='md: w-full flex flex-col gap-y-6'>
-      <ShippingInformation />
-      <PaymentCard />
-      <PaymentForm />
-    </div>
+    <form
+      className='md: w-full flex flex-col gap-y-6'
+      onSubmit={handleFormSubmit}
+    >
+      {fieldItems.map((field) => (
+        <FormField key={field.fieldName} register={register} {...field} />
+      ))}
+      <div>
+        <p className='capitalize font-semibold'>card type</p>
+        <div className='flex items-center gap-3'>
+          {paymentGateways.map(({ img, value }) => {
+            // const active = paymentValue === value;
+            return (
+              <Image
+                src={img}
+                alt={value}
+                width={500}
+                height={500}
+                unoptimized
+                key={value}
+                className={`w-20 py-2 px-5 cursor-pointer hover:border`}
+                onClick={() => {
+                  setValue('card', value);
+                }}
+              />
+            );
+          })}
+        </div>
+        {errors?.card ? (
+          <span role='alert' className='text-pink-500 text-sm'>
+            {errors?.card.message}
+          </span>
+        ) : null}
+      </div>
+      <label htmlFor='' className='flex gap-1 items-center'>
+        <input type='checkbox' {...register('cash_on_delivery')} />
+        cash on delivery
+      </label>
+      <DefaultButton type='submit'>submit</DefaultButton>
+    </form>
   );
 }
+
+const getFieldList = (
+  errors: FieldErrors<FieldsType>
+): {
+  fieldName: Path<FieldsType>;
+  error: FieldError | undefined;
+  id: string;
+  placeholder?: string;
+  label: string;
+  type?: string;
+  value?: string;
+}[] => {
+  return [
+    {
+      fieldName: 'full_name',
+      error: errors.full_name,
+      id: 'full_name',
+      placeholder: 'John Doe',
+      label: 'full name',
+    },
+    {
+      fieldName: 'address',
+      error: errors.address,
+      id: 'address',
+      placeholder: '23 bole avenue',
+      label: 'street address',
+    },
+    {
+      fieldName: 'appartment',
+      error: errors.appartment,
+      id: 'apartment',
+      placeholder: 'peak house, 2nd floor,room 2',
+      label: 'apartment,floor,e.t.c(optional)',
+    },
+    {
+      fieldName: 'city',
+      error: errors.city,
+      id: 'city',
+      placeholder: 'Ikeja | Atlanta',
+      label: 'town/city',
+    },
+    {
+      fieldName: 'phone_number',
+      error: errors.phone_number,
+      id: 'phone_number',
+      placeholder: '+234900000000',
+      label: 'phone number',
+    },
+    {
+      fieldName: 'email',
+      error: errors.email,
+      id: 'email',
+      placeholder: 'user@example.com',
+      label: 'email address',
+    },
+  ];
+};
 
 const ShippingInformation = () => {
   return (
@@ -198,14 +337,14 @@ const PaymentForm = () => {
 const paymentGateways = [
   {
     value: 'visa',
-    img: '/assets/images/visa.png',
+    img: '/assets/icons/visa-credit-card.svg',
   },
   {
-    value: 'bkash',
-    img: '/assets/images/bkash.png',
+    value: 'verve',
+    img: '/assets/icons/Verve-logo.svg',
   },
   {
     value: 'mastercard',
-    img: '/assets/images/mastercard.png',
+    img: '/assets/icons/mastercard.svg',
   },
 ];

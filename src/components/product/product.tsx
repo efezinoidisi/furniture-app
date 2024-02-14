@@ -3,17 +3,27 @@ import Link from 'next/link';
 import { ProductType } from '@/types/product';
 import Colors from './colors';
 import AddToCart from '../buttons/add-to-cart';
+import DefaultButton from '../buttons/default-button';
+import { Icons } from '@/lib/icons';
 
 export default function Product(props: ProductType) {
-  const { id, name, image, price, colors, promo } = props;
+  const { id, name, image, price, colors, promo, discount } = props;
 
   const formattedPrice = parseFloat(`${price}`).toFixed(2);
 
   return (
-    <div className='min-h-[16rem] md:h-fit group overflow-hidden '>
+    <li className='min-h-[16rem] md:h-fit group overflow-hidden relative'>
+      <DefaultButton className='absolute top-2 right-2 bg-grey-300/50 p-1 rounded-full z-10'>
+        <Icons.heart className='text-primary' />
+      </DefaultButton>
+      {promo ? (
+        <span className='absolute top-0 left-0 py-1 px-2 capitalize rounded-xl bg-plain -rotate-[35deg] min-w-[8rem] text-center -ml-8 text-sm z-10'>
+          {promo}
+        </span>
+      ) : null}
       <Link
         href={`/products/${id}`}
-        className=' flex flex-col justify-between w-full h-full gap-y-2 border border-grey-300 pb-4 rounded-t-2xl rounded-b-md'
+        className=' flex flex-col justify-between w-full h-full gap-y-2 border border-grey-300 pb-4 rounded-t-2xl rounded-b-md '
         prefetch={false}
       >
         <div className='w-full h-40 relative rounded-t-2xl overflow-hidden'>
@@ -22,13 +32,12 @@ export default function Product(props: ProductType) {
             alt={name}
             width={400}
             height={500}
-            className='object-cover object-center aspect-square w-full h-full  group-hover:scale-110 transition-transform duration-300 ease-in-out'
+            className='object-cover object-center aspect-square w-full h-full  group-hover:scale-125 transition-transform duration-500 ease-in-out'
             unoptimized
           />
-          {promo ? (
-            <span className='absolute top-0 left-0 py-1 px-2 capitalize rounded-xl bg-plain -rotate-[35deg] min-w-[8rem] text-center -ml-8 text-sm'>
-              {promo}
-            </span>
+
+          {discount ? (
+            <span className='absolute bottom-0 left-0 px-2 z-10 bg-red-600 text-white'>{`-${discount}%`}</span>
           ) : null}
         </div>
         <div className=' flex flex-col gap-2 px-2'>
@@ -45,6 +54,6 @@ export default function Product(props: ProductType) {
           </div>
         </div>
       </Link>
-    </div>
+    </li>
   );
 }

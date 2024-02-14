@@ -35,3 +35,14 @@ export const ResetPasswordSchema = z
     message: 'passwords do not match',
     path: ['confirm_password'],
   });
+
+export const BillingInfoSchema = z.object({
+  full_name: z.string().min(3, 'full name is required'),
+  address: z.string().min(3, 'please provide your address'),
+  appartment: z.string(),
+  city: z.string().min(2, 'city is required'),
+  phone_number: z.string().min(8, 'phone number is required'),
+  email: z.string().email(),
+  cash_on_delivery: z.boolean(),
+  card: z.string().min(1, 'please select your card'),
+});

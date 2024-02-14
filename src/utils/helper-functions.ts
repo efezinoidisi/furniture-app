@@ -3,16 +3,19 @@ import { ProductType } from '@/types/product';
 import { ALL_PRODUCTS, categories } from '@/constants/data';
 import { readUserSession } from '@/lib/actions/user';
 import { redirect } from 'next/navigation';
+import createSupabaseServerClient from '@/lib/supabase/server';
 
 export async function getProduct(id: string) {
   try {
-    // const product = await prisma.product.findUnique({
-    //   where: { id },
-    //   include: { category: true },
-    // });
+    const supabase = await createSupabaseServerClient();
+    const { data, error } = await supabase
+      .from('product')
+      .select()
+      .eq('id', id)
+      .single();
 
-    // return product;
-    return ALL_PRODUCTS.find((product) => product.id === id);
+    if (error) return ALL_PRODUCTS.find((product) => product.id === id);
+    return data;
   } catch (error) {
     return ALL_PRODUCTS.find((product) => product.id === id);
   }
@@ -20,18 +23,13 @@ export async function getProduct(id: string) {
 
 export async function getAllProducts() {
   try {
-    // const products = await prisma.shop.findUnique({
-    //   where: { id: '1' },
+    const supabase = await createSupabaseServerClient();
+    const { data, error } = await supabase
+      .from('product')
+      .select(`*, category (name)`);
 
-    //   select: { products: { include: { category: true } } },
-    // });
-
-    // const products = await prisma.product.findMany({
-    //   include: { category: true },
-    // });
-
-    // return products ? products.products : [];
-    return ALL_PRODUCTS;
+    if (error) return ALL_PRODUCTS;
+    return data;
   } catch (error) {
     console.log(error);
     return ALL_PRODUCTS;
@@ -40,9 +38,11 @@ export async function getAllProducts() {
 
 export async function getCategories() {
   try {
-    // const categories = await prisma.category.findMany();
-    // return categories || [];
-    return categories;
+    const supabase = await createSupabaseServerClient();
+    const { data, error } = await supabase.from('category').select();
+
+    if (error) return categories;
+    return data;
   } catch (error) {
     console.log(error);
     return categories;

@@ -23,8 +23,8 @@ export default function Top({ categories }: TopProps) {
   return (
     <>
       <Back />
-      <h2>products catalogue</h2>
-      <div className='flex items-center justify-between my-6'>
+      <h2 className='sr-only'>products catalogue</h2>
+      <div className='flex items-center justify-between my-3'>
         <BreadCrump items={[{ path: '/products', title: 'all furnitures' }]} />
         <DefaultButton className='md:hidden' onClick={toggleFilter}>
           <Icons.filter />
@@ -44,7 +44,10 @@ export default function Top({ categories }: TopProps) {
               </DefaultButton>
             </div>
             <Suspense fallback={<Ellipsis />}>
-              <Filter className='' categories={categories} />
+              <Filter
+                className='overflow-y-scroll hide-scrollbar'
+                categories={categories}
+              />
             </Suspense>
           </div>
         </>

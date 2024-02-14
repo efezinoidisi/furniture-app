@@ -38,7 +38,7 @@ export default function Hero() {
               className='w-full h-full object-cover aspect-[2/3] rounded-[2rem] object-center lg:object-left'
               unoptimized
             />
-            <span className='absolute top-4 left-4 py-2 px-2 md:px-3 lg:px-5 rounded-sl bg-plain'>
+            <span className='absolute top-2 left-4 py-1 px-2 rounded-xl bg-plain'>
               new
             </span>
           </div>

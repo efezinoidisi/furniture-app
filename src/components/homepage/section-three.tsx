@@ -4,18 +4,10 @@ import Link from 'next/link';
 
 export default function SectionThree() {
   return (
-    <section className='grid md:grid-cols-2 gap-y-4 gap-x-5 page-size relative after:content-[""] after:absolute after:top-32 lg:after:top-96 after:w-52 after:h-32 after:bg-spot-gradient after:blur-3xl after:rounded-full after:-left-32 py-10'>
-      <div className='text-center md:text-left flex flex-col gap-y-3'>
+    <section className='grid md:grid-cols-2 gap-y-4 gap-x-5 page-size relative after:content-[""] after:absolute after:top-32 lg:after:top-96 after:w-52 after:h-32 after:bg-spot-gradient after:blur-3xl after:rounded-full after:-left-32 py-10 '>
+      <div className='text-center md:text-left flex flex-col gap-y-3 bg-[url("/assets/images/ellipse1.svg")] bg-no-repeat bg-left-top'>
         <h3 className='capitalize bg-[url("/assets/images/arrow4.svg")] bg-no-repeat bg-right-bottom bg-[length:4rem] pt-8 w-fit relative text-center md:text-left text-2xl md:text-[2rem] text-pretty font-bold leading-9'>
           enjoy our latest furniture trends and style
-          <Image
-            src={'/assets/images/ellipse1.svg'}
-            alt=''
-            width={20}
-            height={20}
-            className='left-1 absolute top-3 w-6 md:left-0 md:top-0'
-            unoptimized
-          />
         </h3>
 
         <p className=' md:text-lg lg:text-xl lg:leading-9 md:leading-8 leading-7'>

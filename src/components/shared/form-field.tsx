@@ -59,7 +59,7 @@ export default function FormField<T extends FieldValues>({
         {...register(fieldName)}
         id={id}
         {...otherProps}
-        className='w-full h-full invalid:border-pink-500 focus-within:border-blue-500/50 focus-within:shadow-lg py-3 px-2 focus-within:outline-none border border-black/20 rounded-lg placeholder:capitalize'
+        className='w-full h-full invalid:border-pink-500 focus-within:border-blue-500/50 focus-within:shadow-lg py-3 px-2 focus-within:outline-none border border-black/20 rounded-lg'
         aria-invalid={!!error}
       />
       {error ? (

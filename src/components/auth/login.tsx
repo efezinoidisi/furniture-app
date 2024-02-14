@@ -1,6 +1,4 @@
 'use client';
-import { useState } from 'react';
-import Input from './input';
 import DefaultButton from '../buttons/default-button';
 import Link from 'next/link';
 import { SignInSchema } from '@/types/schemas';

@@ -6,7 +6,7 @@ import DefaultButton from './default-button';
 export default function Back() {
   const { back } = useRouter();
   return (
-    <DefaultButton onClick={back} className='lg:hidden'>
+    <DefaultButton onClick={back} className='md:hidden'>
       <Icons.left />
     </DefaultButton>
   );

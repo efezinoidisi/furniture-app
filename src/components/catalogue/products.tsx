@@ -1,40 +1,53 @@
 'use client';
 
-import { ALL_PRODUCTS } from '@/constants/data';
 import useSearchParams from '../hooks/use-search-params';
-import Category from '../product/category';
+
 import Filter from './filter';
+
 import ProductList from '../product/list';
-import { CategoryType } from '@/types/product';
+
+import { CategoryType, ProductType } from '@/types/product';
+import { useMemo } from 'react';
+import Search from './search';
 
 type ProductsProps = {
   categories: CategoryType[];
+  products: ProductType[];
 };
 
-export default function Products({ categories }: ProductsProps) {
-  const { searchParams, updateSearchParams } = useSearchParams();
+export default function Products({ categories, products }: ProductsProps) {
+  const { searchParams, updateSearchParams } = useSearchParams(true);
 
   const category = searchParams.get('category') ?? '';
   const color = searchParams.get('color') ?? '';
-  const price = searchParams.get('price') ?? '1000';
-  const type = searchParams.get('type') ?? '';
+  const price = searchParams.get('price') ?? '0-20000';
 
-  let filteredProducts = ALL_PRODUCTS.filter(
-    (product) =>
-      product.category.name.includes(category) && product.price <= +price
-    // &&product.colors.includes(color)
-  );
+  const query = searchParams.get('q') ?? '';
+
+  const [minPrice, maxPrice] = price.replaceAll('$', '').split('-');
+
+  const filteredProducts = useMemo(() => {
+    return products.filter((product) => {
+      const includesCategory = product.category.name.includes(category);
+
+      const includesColor = color ? product.colors.includes(color) : true;
+
+      const isWithinPriceRange =
+        product.price >= +minPrice && product.price <= +maxPrice;
+
+      const isProductName = product.name.includes(query);
+      return (
+        includesCategory && includesColor && isWithinPriceRange && isProductName
+      );
+    });
+  }, [maxPrice, minPrice, products, category, color, query]);
 
   return (
     <>
-      {/* <Category
-        currentCategory={type}
-        toggleCategory={updateSearchParams}
-        categories={categories}
-      /> */}
+      <Search />
       <section className='grid md:grid-cols-7 gap-x-10'>
         <Filter
-          className='hidden md:block md:col-span-2 w-full'
+          className='hidden md:block md:col-span-2 w-full md:sticky md:top-10 h-fit'
           categories={categories.map((category) => category.name)}
         />
         <ProductList
