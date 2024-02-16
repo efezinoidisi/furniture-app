@@ -5,11 +5,12 @@ import Colors from './colors';
 import AddToCart from '../buttons/add-to-cart';
 import DefaultButton from '../buttons/default-button';
 import { Icons } from '@/lib/icons';
+import { formatPriceToString } from '@/utils/helper-functions';
 
 export default function Product(props: ProductType) {
   const { id, name, image, price, colors, promo, discount } = props;
 
-  const formattedPrice = parseFloat(`${price}`).toFixed(2);
+  const formattedPrice = formatPriceToString(price);
 
   return (
     <li className='min-h-[16rem] md:h-fit group overflow-hidden relative'>
@@ -17,7 +18,7 @@ export default function Product(props: ProductType) {
         <Icons.heart className='text-primary' />
       </DefaultButton>
       {promo ? (
-        <span className='absolute top-0 left-0 py-1 px-2 capitalize rounded-xl bg-plain -rotate-[35deg] min-w-[8rem] text-center -ml-8 text-sm z-10'>
+        <span className='absolute top-2 left-0 py-1 px-2 capitalize rounded-xl bg-plain -rotate-[35deg] min-w-[8rem] text-center -ml-10 text-sm z-10'>
           {promo}
         </span>
       ) : null}
@@ -46,7 +47,7 @@ export default function Product(props: ProductType) {
           </h4>
           <Colors colors={colors} />
           <div className='flex items-center justify-between font-bold'>
-            <p className=' text-lg'>{`$${formattedPrice}`}</p>
+            <p className=' text-lg'>{formattedPrice}</p>
             <AddToCart
               product={props}
               className='bg-[#D4DCFB] text-black px-2 py-2 rounded-2xl text-sm text-nowrap hover:bg-black hover:text-white transition-colors duration-200 ease-linear md:px-3'

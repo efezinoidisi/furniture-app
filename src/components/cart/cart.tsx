@@ -11,8 +11,10 @@ export default function Cart(props: CartItem) {
   const { product, quantity } = props;
   const removeFromCart = useCartStore((state) => state.removeFromCart);
 
-  if (!product) return null;
   const { name, image, id, discount, price } = product;
+
+  const subtotal =
+    (discount ? calculateDiscount(price, discount) : price) * quantity;
 
   return (
     <div className='grid grid-cols-3 gap-x-3 px-2 rounded-md border-grey-300 py-3 relative bg-white/90'>
@@ -43,10 +45,7 @@ export default function Cart(props: CartItem) {
         <p className='flex flex-col items-center border px-2 bg-white'>
           <span className='capitalize font-medium'>subtotal</span>
 
-          <span>
-            $
-            {(discount ? calculateDiscount(price, discount) : price) * quantity}
-          </span>
+          <span>{subtotal}</span>
         </p>
       </div>
     </div>
