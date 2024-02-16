@@ -43,6 +43,19 @@ const config: Config = {
       screens: {
         sl: '500px',
       },
+      animation: {
+        'slide-in': 'slide-in .5s linear',
+      },
+      keyframes: {
+        'slide-in': {
+          from: {
+            translate: '-100%',
+          },
+          to: {
+            translate: '0',
+          },
+        },
+      },
     },
   },
   plugins: [],

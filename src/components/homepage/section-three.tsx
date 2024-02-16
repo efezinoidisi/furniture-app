@@ -47,7 +47,7 @@ export default function SectionThree() {
       <div className='col-start-1 md:items-start justify-center  flex md:justify-end pr-5'>
         <Link
           href={''}
-          className='bg-black text-white px-5 py-2 flex gap-3 capitalize w-fit'
+          className='bg-black text-white px-5 py-2 flex gap-3 capitalize w-fit mt-4'
         >
           explore
           <Icons.right />

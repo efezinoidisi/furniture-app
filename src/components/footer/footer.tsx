@@ -5,7 +5,7 @@ import NavLinks from '../navigation/nav-links';
 export default function Footer() {
   const year = new Date().getFullYear();
   return (
-    <footer className='text-grey-100 page-size flex flex-col place-content-center min-h-72 gap-y-10 py-10 border-t border-grey-300/40 mt-3'>
+    <footer className='text-grey-100 page-size flex flex-col place-content-center min-h-72 gap-y-10 py-10  mt-5 md:py-16'>
       <div className='grid md:grid-cols-4 gap-x-10 gap-y-3'>
         <div className='flex flex-col-reverse md:flex-col col-span-2'>
           <Image

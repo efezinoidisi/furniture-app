@@ -4,7 +4,7 @@ import { Icons } from '@/lib/icons';
 
 export default function Hero() {
   return (
-    <section className='grid md:grid-cols-2 lg:min-h-[80svh] lg:place-content-center lg:py-10 gap-x-16 overflow-y-clip py-5 relative after:content-[""] after:absolute after:top-96 after:w-40 after:h-32 after:bg-spot-gradient after:blur-3xl after:rounded-full after:-left-32 after:-z-10 page-size'>
+    <section className='grid md:grid-cols-2 lg:min-h-[80svh] lg:place-content-center lg:py-10 gap-x-16 overflow-y-clip py-5 relative page-size gap-y-8'>
       <div className='flex flex-col h-full lg:py-16 items-center text-center xl:text-5xl md:text-start md:pb-20 pb-10'>
         <h1 className=' text-[1.75rem] lg:text-4xl font-bold capitalize  leading-7 md:text-left md:leading-8 lg:text-balance'>
           discover the latest{' '}
@@ -18,7 +18,7 @@ export default function Hero() {
         </p>
         <Link
           href={'/products'}
-          className='bg-black text-white px-5 py-2 flex gap-3 capitalize w-fit md:self-start text-xl link hover:bg-primary/60 items-center'
+          className='bg-black text-white px-5 py-2 flex gap-3 capitalize w-fit md:self-start text-xl link hover:bg-primary/60 items-center mt-10'
         >
           explore more
           <Icons.right />

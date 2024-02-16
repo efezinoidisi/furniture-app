@@ -89,8 +89,8 @@ export default function MainNav() {
       {showMenu ? (
         <>
           <Overlay handleClick={toggleMenu} />
-          <div className='fixed inset-y-0 bg-white-gradient left-0 w-3/4 py-10 px-5 rounded-tr-sl z-[100] md:w-1/2 md:px-10 md:hidden'>
-            <div className='flex items-center justify-between w-full mb-6'>
+          <div className='fixed inset-y-0 bg-white-gradient left-0 w-2/4 py-10 px-7 rounded-tr-sl z-[100] md:hidden transition-transform animate-slide-in'>
+            <div className='flex items-center justify-between w-full mb-9'>
               {' '}
               <Image
                 src={'/assets/images/logo.svg'}
@@ -105,7 +105,7 @@ export default function MainNav() {
             </div>
             <NavLinks
               navigationLinks={navigationLinks}
-              className='flex flex-col gap-y-5 items-center'
+              className='flex flex-col gap-y-5 items-start'
               linkStyle='first:text-primary font-bold text-black first:border-b-2 first:border-primary capitalize w-fit hover:text-primary/80'
               handleLinkClick={toggleMenu}
             />
