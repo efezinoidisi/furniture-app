@@ -18,7 +18,7 @@ export const categories = [
     id: '3',
   },
   {
-    name: 'dining',
+    name: 'dining room',
     id: '4',
   },
 ];
