@@ -1,16 +1,21 @@
 'use client';
 import { Icons } from '@/lib/icons';
 import DefaultButton from '../buttons/default-button';
-import useCart from '../store/contexts/cart-context';
+
+import { useCartStore } from '../store/cart-store';
 
 type ProductCountProps = {
   id: string;
 };
 
 export default function ProductCount({ id }: ProductCountProps) {
-  const { increaseItemQuantity, decreaseItemQuantity, cart } = useCart();
 
-  const product = cart?.find((item) => item.id === id) ?? null;
+  const [increaseItemQuantity, cart,decreaseItemQuantity] = useCartStore((state) => [
+    state.increaseQuantity,
+    state.cart,
+    state.decreaseQuantity
+  ]);
+  const product = cart?.find((item) => item.product.id === id) ?? null;
 
   const itemInCart = !!product;
   return (

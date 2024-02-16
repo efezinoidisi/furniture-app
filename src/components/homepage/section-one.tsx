@@ -1,22 +1,20 @@
 'use client';
 
-import { heroProducts } from '@/constants/data';
 import ProductList from '../product/list';
 import Category from '../product/category';
 import useSearchParams from '../hooks/use-search-params';
 import { ProductType } from '@/types/product';
 
 type SectionOneProps = {
-  categories: { id: string; name: string }[];
   products: ProductType[];
 };
 
-export default function SectionOne({ categories, products }: SectionOneProps) {
+export default function SectionOne({ products }: SectionOneProps) {
   const { searchParams, updateSearchParams } = useSearchParams();
   const currentCategory = searchParams.get('type') ?? '';
   const filteredProducts = products.filter((product) => {
     return currentCategory
-      ? product.category.name === currentCategory
+      ? product.category?.name === currentCategory
       : product;
   });
 
@@ -36,7 +34,6 @@ export default function SectionOne({ categories, products }: SectionOneProps) {
       <Category
         currentCategory={currentCategory}
         toggleCategory={updateSearchParams}
-        categories={categories}
       />
       <ProductList
         listItems={filteredProducts.slice(0, 12)}

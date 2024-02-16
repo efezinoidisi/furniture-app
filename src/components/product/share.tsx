@@ -16,24 +16,8 @@ export default function Share({ value = '' }: Props) {
   const url = `${pathname}${searchParams.toString()}`;
   const text = value ?? url;
 
-  const handleCopyUrlToClipboard = async () => {
-    try {
-      await window.navigator.clipboard.writeText(text);
-      setResult('copied!');
-    } catch (error) {
-      setResult('failed!');
-    } finally {
-      setTimeout(() => {
-        setResult('');
-      }, 1000);
-    }
-  };
-
   return (
-    <DefaultButton
-      className='flex items-center gap-1 text-black capitalize relative pr-4 py-4'
-      onClick={handleCopyUrlToClipboard}
-    >
+    <DefaultButton className='flex items-center gap-1 text-black capitalize relative pr-4 py-4'>
       <Icons.share className='bg-[#DFE7EB] p-2 rounded-full' size={40} />
       share
       {result ? (

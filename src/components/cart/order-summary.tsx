@@ -1,24 +1,32 @@
 'use client';
 import Link from 'next/link';
-import useCart from '../store/contexts/cart-context';
+import { useCartStore } from '../store/cart-store';
 
-export default function OrderSummary() {
-  const { cart } = useCart();
+interface OrderSummaryProps {
+  showLinks?: boolean;
+}
+
+export default function OrderSummary({ showLinks = true }: OrderSummaryProps) {
+  const cart = useCartStore((state) => state.cart);
 
   if (!cart || cart.length === 0) return null;
 
   const subtotal = cart.reduce(
-    (sum, item) => sum + item.price * item.quantity,
+    (sum, item) => sum + item?.product.price * item.quantity,
     0
   );
 
   const discount = cart.reduce(
     (sum, item) =>
-      sum + (item?.discount ? getDiscount(item.price, item.discount) : 0),
+      sum +
+      item.quantity *
+        (item?.product.discount
+          ? getDiscount(item.product.price, item.product.discount)
+          : 0),
     0
   );
 
-  const delivery = cart?.length * 50;
+  const delivery = cart?.length * 150;
 
   const total = subtotal - discount + delivery;
 
@@ -51,27 +59,29 @@ export default function OrderSummary() {
         {summaryItems.map(({ name, value }) => (
           <div
             key={name}
-            className='flex items-center justify-between text-black/50 last:mt-auto last:text-black last:text-xl last:font-bold'
+            className='flex items-center justify-between text-black/80 last:mt-auto last:text-black last:text-xl last:font-bold'
           >
             <h5 className='capitalize'>{name}</h5>
             <p>{value}</p>
           </div>
         ))}
       </div>
-      <div className='flex items-center gap-2 flex-col text-center capitalize mt-7'>
-        <Link
-          href={'/checkout'}
-          className='rounded-md bg-black text-white w-full text-nowrap px-2 py-3 transition-colors duration-200 ease-in-out hover:bg-primary/80'
-        >
-          proceed to checkout
-        </Link>
-        <Link
-          href={'/products'}
-          className='rounded-md border border-black w-full py-3 text-nowrap px-2 transition-colors duration-200 ease-in-out hover:border-primary hover:text-primary'
-        >
-          continue shopping
-        </Link>
-      </div>
+      {showLinks && (
+        <div className='flex items-center gap-2 flex-col text-center  mt-7'>
+          <Link
+            href={'/checkout'}
+            className='rounded-md bg-black text-white w-full text-nowrap px-2 py-4 transition-colors duration-200 ease-in-out hover:bg-primary/80'
+          >
+            Proceed to Checkout
+          </Link>
+          <Link
+            href={'/products'}
+            className='rounded-md border border-black w-full py-4 text-nowrap px-2 transition-colors capitalize duration-200 ease-in-out hover:border-primary hover:text-primary'
+          >
+            continue shopping
+          </Link>
+        </div>
+      )}
     </div>
   );
 }

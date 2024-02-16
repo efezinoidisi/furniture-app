@@ -1,30 +1,24 @@
-import { CategoryType, ProductType } from '@/types/product';
-import { getAllProducts } from '@/utils/helper-functions';
+import { getAllProducts } from '@/lib/actions/data';
 import ProductCarousel from '../carousel/product-carousel';
 
 type SimilarProps = {
-  categories: string[];
+  category?: string;
   productId: string;
 };
 
-export default async function Similar({ categories, productId }: SimilarProps) {
+export default async function Similar({ category, productId }: SimilarProps) {
   const products = await getAllProducts();
 
-  const similarProducts = products.filter((product) => {
-    return (
-      product.id !== productId &&
-      !product.category.some((category) => categories.includes(category.name))
-    );
-  });
+  const similarProducts = products.filter(
+    (product) => product.id !== productId && product.category?.name === category
+  );
 
   return (
     <>
-      <h3>similar products</h3>
+      <h3 className='font-semibold capitalize text-xl mt-6 mb-3'>
+        similar products
+      </h3>
       <ProductCarousel products={similarProducts} />
     </>
   );
 }
-
-const isInList = (id: string, list: ProductType[]) => {
-  return list.find((item) => item.id === id) ? true : false;
-};

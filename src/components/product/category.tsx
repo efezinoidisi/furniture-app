@@ -1,20 +1,13 @@
 'use client';
 
-// import { categories } from '@/constants/data';
+import { categories } from '@/constants/data';
+
 type Props = {
   currentCategory: string;
   toggleCategory: (key: string, value: string) => void;
-  categories: {
-    id: string;
-    name: string;
-  }[];
 };
 
-export default function Category({
-  currentCategory,
-  toggleCategory,
-  categories,
-}: Props) {
+export default function Category({ currentCategory, toggleCategory }: Props) {
   return (
     <ul className='flex gap-5 overflow-x-scroll hide-scrollbar my-10 md:overflow-x-clip md:flex-wrap'>
       <li
@@ -45,9 +38,6 @@ export default function Category({
           </li>
         );
       })}
-      {/* <li className='bg-black rounded-sl px-3 py-1 bg-opacity-[0.15] text-black capitalize text-sm md:text-base lg:text-lg md:px-5'>
-        <Link href={''}>more</Link>
-      </li> */}
     </ul>
   );
 }

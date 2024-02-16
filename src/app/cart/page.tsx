@@ -10,7 +10,7 @@ const breadCrump = [
   },
 ];
 
-export default function page() {
+export default async function CartPage() {
   return (
     <main className='page-size'>
       <Back />

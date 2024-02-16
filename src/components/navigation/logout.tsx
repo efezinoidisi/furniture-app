@@ -1,7 +1,6 @@
 'use client';
 
 import createSupabaseClient from '@/lib/supabase/client';
-// import { logout } from '@/lib/actions/auth';
 import DefaultButton from '../buttons/default-button';
 import toast from 'react-hot-toast';
 
@@ -14,7 +13,7 @@ export default function Logout() {
         toast.success('signed out!');
       })
       .catch(() => {
-        toast.error('failed!');
+        toast.error('sign out failed!');
       });
   };
 

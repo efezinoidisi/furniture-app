@@ -156,14 +156,4 @@ export const heroProducts: ProductType[] = [
 
 export const ALL_PRODUCTS = [...heroProducts];
 
-export const COLORS = [
-  'white',
-  'black',
-  'blue',
-  'gray',
-  'green',
-  'purple',
-  'red',
-  'pink',
-  'brown',
-];
+export const COLORS = ['gray', 'red', 'brown', 'blue', 'green', 'purple'];

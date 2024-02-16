@@ -1,8 +1,8 @@
 'use client';
 import { ProductType } from '@/types/product';
 import DefaultButton from './default-button';
-import useCart from '../store/contexts/cart-context';
 import { Icons } from '@/lib/icons';
+import { useCartStore } from '../store/cart-store';
 
 type AddToCartProps = {
   product: ProductType;
@@ -15,8 +15,7 @@ export default function AddToCart({
   className,
   showText = false,
 }: AddToCartProps) {
-  const { addToCart, cart } = useCart();
-
+  const addToCart = useCartStore((state) => state.addToCart);
   const addItemToCart = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     addToCart(product);

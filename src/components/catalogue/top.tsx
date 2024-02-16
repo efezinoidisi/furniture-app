@@ -9,11 +9,7 @@ import Filter from './filter';
 import Overlay from '../shared/overlay';
 import Ellipsis from '../loaders/ellipsis';
 
-type TopProps = {
-  categories: string[];
-};
-
-export default function Top({ categories }: TopProps) {
+export default function Top() {
   const [showFilter, setShowFilter] = useState(false);
 
   const toggleFilter = () => {
@@ -44,10 +40,7 @@ export default function Top({ categories }: TopProps) {
               </DefaultButton>
             </div>
             <Suspense fallback={<Ellipsis />}>
-              <Filter
-                className='overflow-y-scroll hide-scrollbar'
-                categories={categories}
-              />
+              <Filter className='overflow-y-scroll hide-scrollbar' />
             </Suspense>
           </div>
         </>

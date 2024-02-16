@@ -4,16 +4,17 @@ import { useState } from 'react';
 import DefaultButton from '../buttons/default-button';
 import { Icons } from '@/lib/icons';
 import useSearchParams from '../hooks/use-search-params';
-import { COLORS } from '@/constants/data';
+import { COLORS, categories as CATEGORIES } from '@/constants/data';
 import { mergeStyles } from '@/utils/style-helpers';
 
 type FilterProps = {
   className: string;
-  categories: string[];
 };
 
-export default function Filter({ className, categories }: FilterProps) {
+export default function Filter({ className }: FilterProps) {
   const { searchParams } = useSearchParams();
+
+  const categories = CATEGORIES.map((category) => category.name);
 
   const items: Wrapper[] = [
     {
@@ -34,7 +35,14 @@ export default function Filter({ className, categories }: FilterProps) {
     },
     {
       title: 'price',
-      list: ['$0-$500', '$500-$1500', '$1500-$2500', '$2500-$7000'],
+      list: [
+        '$0-$500',
+        '$500-$1500',
+        '$1500-$2500',
+        '$2500-$5000',
+        '$5000-$10000',
+        '$10000-$25000',
+      ],
       tab: searchParams.get('price') ?? '',
       listStyles: 'flex flex-wrap',
       label: 'price',
@@ -52,7 +60,7 @@ export default function Filter({ className, categories }: FilterProps) {
 }
 
 type Wrapper = {
-  list: string[];
+  list: (string | undefined)[];
   title: string;
   listStyles: string;
   tab: string;
@@ -85,6 +93,7 @@ const FilterWrapper = ({
       {showContent ? (
         <ul className={mergeStyles('px-3 py-1 text-grey-100 ', listStyles)}>
           {list?.map((item) => {
+            if (!item) return null;
             const activeCategory = item === tab;
 
             return (

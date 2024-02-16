@@ -7,7 +7,6 @@ import DefaultButton from '../buttons/default-button';
 import CartLink from './cart';
 import { useState } from 'react';
 import Overlay from '../shared/overlay';
-import { readUserSession } from '@/lib/actions/user';
 import Logout from './logout';
 import { useSession } from '../store/contexts/session-context';
 
@@ -42,11 +41,12 @@ export default function MainNav() {
       isVisible: !isSignedIn,
     },
   ];
+
   return (
     <header className='flex justify-between py-10 w-11/12 lg:w-4/5 mx-auto '>
       <div className='flex gap-3 md:gap-7'>
         <DefaultButton
-          className='text-primary lg:hidden link'
+          className='text-primary md:hidden link'
           onClick={toggleMenu}
         >
           <Icons.menu className='text-2xl' size={40} />
@@ -63,13 +63,13 @@ export default function MainNav() {
       </div>
       <NavLinks
         navigationLinks={navigationLinks}
-        className='lg:flex gap-x-5 items-center hidden'
+        className='md:flex gap-x-5 items-center hidden'
         linkStyle='first:text-primary font-bold text-black first:border-b-2 first:border-primary capitalize link hover:text-primary/80'
       />
       <div className='flex items-center gap-1 md:gap-3'>
         <Link
           href={'/wishlist'}
-          className='text-primary rounded-[2rem] p-2 capitalize link group pointer-events-none'
+          className='text-primary rounded-[2rem] p-2 capitalize link group'
         >
           <Icons.heart className='group-hover:fill-white' />
         </Link>
@@ -89,7 +89,7 @@ export default function MainNav() {
       {showMenu ? (
         <>
           <Overlay handleClick={toggleMenu} />
-          <div className='fixed inset-y-0 bg-white-gradient left-0 w-3/4 py-10 px-5 rounded-tr-sl z-[100] md:w-1/2 md:px-10 lg:hidden'>
+          <div className='fixed inset-y-0 bg-white-gradient left-0 w-3/4 py-10 px-5 rounded-tr-sl z-[100] md:w-1/2 md:px-10 md:hidden'>
             <div className='flex items-center justify-between w-full mb-6'>
               {' '}
               <Image

@@ -2,11 +2,12 @@
 
 import { Icons } from '@/lib/icons';
 import Link from 'next/link';
-import useCart from '../store/contexts/cart-context';
+import { useCartStore } from '../store/cart-store';
 
 export default function CartLink() {
-  const { cart, totalItemsInCart } = useCart();
-  const sizeOfCart = totalItemsInCart();
+  const cart = useCartStore((state) => state.cart);
+
+  const sizeOfCart = cart?.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
     <Link

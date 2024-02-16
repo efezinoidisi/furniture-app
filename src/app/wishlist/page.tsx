@@ -1,3 +1,3 @@
 export default function WishlistPage() {
-  return <div>page</div>;
+  return <div>coming soon</div>;
 }

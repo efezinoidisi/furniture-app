@@ -1,5 +1,5 @@
 import SignupForm from '@/components/auth/signup-form';
-import { redirectIfSession } from '@/utils/helper-functions';
+import { redirectIfSession } from '@/lib/actions/user';
 import Link from 'next/link';
 
 type SignUpProps = {

@@ -3,7 +3,7 @@ import Back from '@/components/buttons/back';
 import OrderPreview from '@/components/checkout/order-preview';
 import ShippingDetails from '@/components/checkout/shipping-details';
 import { ProductType } from '@/types/product';
-import { getProduct } from '@/utils/helper-functions';
+import { getProduct } from '@/lib/actions/data';
 
 type CheckoutPageprops = {
   searchParams: { id?: string };

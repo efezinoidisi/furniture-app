@@ -1,8 +1,9 @@
 type ColorsProps = {
-  colors: string[];
+  colors: string[] | null;
 };
 
 export default function Colors({ colors }: ColorsProps) {
+  if (!colors) return null;
   return (
     <div className='flex gap-2 items-center'>
       {colors.map((color) => {

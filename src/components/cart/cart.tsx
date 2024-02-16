@@ -3,14 +3,17 @@ import Image from 'next/image';
 import ProductCount from '../product/product-count';
 import DefaultButton from '../buttons/default-button';
 import { Icons } from '@/lib/icons';
-import useCart from '../store/contexts/cart-context';
 import ProductPrice from '../shared/product-price';
 import { calculateDiscount } from '@/utils/helper-functions';
+import { useCartStore } from '../store/cart-store';
 
 export default function Cart(props: CartItem) {
-  const { name, price, discount, image, id, quantity } = props;
+  const { product, quantity } = props;
+  const removeFromCart = useCartStore((state) => state.removeFromCart);
 
-  const { removeFromCart } = useCart();
+  if (!product) return null;
+  const { name, image, id, discount, price } = product;
+
   return (
     <div className='grid grid-cols-3 gap-x-3 px-2 rounded-md border-grey-300 py-3 relative bg-white/90'>
       <Image
@@ -24,12 +27,12 @@ export default function Cart(props: CartItem) {
 
       <div>
         <h3 className='truncate capitalize font-bold'>{name}</h3>
-        <ProductPrice price={price} discount={discount} />
+        <ProductPrice price={price} discount={discount} showDiscount={false} />
         <ProductCount id={id} />
       </div>
       <div className='flex items-end justify-between flex-col w-full '>
         <DefaultButton
-          onClick={() => removeFromCart(props)}
+          onClick={() => removeFromCart(product)}
           className='group w-fit'
           id='remove'
           aria-label='remove item from cart'

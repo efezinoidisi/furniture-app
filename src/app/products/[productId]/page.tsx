@@ -7,10 +7,8 @@ import ProductCount from '@/components/product/product-count';
 import Share from '@/components/product/share';
 import Similar from '@/components/product/similar';
 import ProductPrice from '@/components/shared/product-price';
-import { ALL_PRODUCTS } from '@/constants/data';
 import { Icons } from '@/lib/icons';
-import { ProductType } from '@/types/product';
-import { getProduct } from '@/utils/helper-functions';
+import { getProduct } from '@/lib/actions/data';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -82,7 +80,7 @@ export default async function page(props: Props) {
           <ProductCount id={product.id} />
           <div className='flex items-center gap-5'>
             <AddToCart
-              product={product as ProductType}
+              product={product}
               className='bg-black border border-black hover:bg-inherit text-white hover:text-inherit px-6 py-2 capitalize w-full'
               showText
             />
@@ -92,18 +90,6 @@ export default async function page(props: Props) {
             >
               buy now
             </Link>
-          </div>
-          <div>
-            <ul className='flex flex-wrap gap-2'>
-              {product.category.map((item) => (
-                <li
-                  key={item.name}
-                  className='bg-grey-300/70 rounded-xl py-1 px-2'
-                >
-                  {item.name}
-                </li>
-              ))}
-            </ul>
           </div>
         </div>
       </section>
@@ -115,10 +101,7 @@ export default async function page(props: Props) {
         </p>
       </section>
 
-      <Similar
-        categories={product.category.map((cat) => cat.name)}
-        productId={product.id}
-      />
+      <Similar category={product.category?.name} productId={product.id} />
     </main>
   );
 }

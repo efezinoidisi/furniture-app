@@ -1,16 +1,21 @@
 'use server';
 
+import { cookies } from 'next/headers';
 import createSupabaseServerClient from '../supabase/server';
+import { redirect } from 'next/navigation';
 
-// import prisma from '../db';
-
-// export async function fetchUser(email: string) {
-//   const user = await prisma.user.findUnique({ where: { email } });
-
-//   return user;
-// }
 export async function readUserSession() {
-  const supabase = await createSupabaseServerClient();
+  const cookieStore = cookies();
+
+  const supabase = await createSupabaseServerClient(cookieStore);
 
   return supabase.auth.getSession();
+}
+
+export async function redirectIfSession(to: string = '/') {
+  const { data } = await readUserSession();
+
+  if (data?.session) {
+    redirect(to);
+  }
 }

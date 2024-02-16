@@ -1,8 +1,8 @@
 import Login from '@/components/auth/login';
-import { readUserSession } from '@/lib/actions/user';
-import { redirectIfSession } from '@/utils/helper-functions';
+// import { readUserSession } from '@/lib/actions/user';
+import { redirectIfSession } from '@/lib/actions/user';
 import Link from 'next/link';
-import { redirect } from 'next/navigation';
+// import { redirect } from 'next/navigation';
 
 type LoginPageProps = {
   searchParams: { from?: string };
@@ -13,14 +13,8 @@ export default async function LoginPage(props: LoginPageProps) {
     searchParams: { from = '/' },
   } = props;
 
-  // await redirectIfSession(from);
-  const { data } = await readUserSession();
+  await redirectIfSession(from);
 
-  console.log(data);
-
-  if (data?.session) {
-    redirect(from);
-  }
   return (
     <main className='flex flex-col justify-center w-3/4 mx-auto gap-2'>
       <h2 className='text-center text-xl font-bold font-fira-code md:text-2xl'>

@@ -4,7 +4,6 @@ import DefaultButton from '../buttons/default-button';
 import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import useCart from '../store/contexts/cart-context';
 import { BillingInfoSchema } from '@/types/schemas';
 import { z } from 'zod';
 import {
@@ -16,6 +15,7 @@ import {
 } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import FormField from '../shared/form-field';
+import { useCartStore } from '../store/cart-store';
 
 type FieldsType = z.infer<typeof BillingInfoSchema>;
 
@@ -46,7 +46,7 @@ export default function ShippingDetails() {
   const handleFormSubmit = handleSubmit(async (data) => {
     console.log(data);
   });
-  const { cart } = useCart();
+  const cart = useCartStore((state) => state.cart);
   if (!cart || cart.length === 0) {
     return (
       <div className='col-span-full min-h-[50vh] flex flex-col items-center gap-6 capitalize justify-center relative after:content-[""] after:absolute after:top-1/2 after:w-40 after:h-32 after:bg-spot-gradient after:blur-3xl after:rounded-full after:-left-32'>

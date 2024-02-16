@@ -25,7 +25,8 @@
     "react-hook-form": "^7.49.3",
     "react-hot-toast": "^2.4.1",
     "tailwind-merge": "^2.2.1",
-    "zod": "^3.22.4"
+    "zod": "^3.22.4",
+    "zustand": "^4.5.0"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.6",
