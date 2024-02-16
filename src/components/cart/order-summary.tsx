@@ -1,22 +1,33 @@
 'use client';
 import Link from 'next/link';
 import { useCartStore } from '../store/cart-store';
+import { formatPriceToString } from '@/utils/helper-functions';
+import { CartItem } from '@/types/product';
+import { mergeStyles } from '@/utils/style-helpers';
 
 interface OrderSummaryProps {
   showLinks?: boolean;
+  items?: CartItem[] | null;
+  styles?: string;
 }
 
-export default function OrderSummary({ showLinks = true }: OrderSummaryProps) {
+export default function OrderSummary({
+  showLinks = true,
+  items = null,
+  styles = '',
+}: OrderSummaryProps) {
   const cart = useCartStore((state) => state.cart);
 
-  if (!cart || cart.length === 0) return null;
+  if ((!cart || !cart.length) && !items) return null;
 
-  const subtotal = cart.reduce(
+  const itemsList = items || cart;
+
+  const subtotal = itemsList.reduce(
     (sum, item) => sum + item?.product.price * item.quantity,
     0
   );
 
-  const discount = cart.reduce(
+  const discount = itemsList.reduce(
     (sum, item) =>
       sum +
       item.quantity *
@@ -26,14 +37,14 @@ export default function OrderSummary({ showLinks = true }: OrderSummaryProps) {
     0
   );
 
-  const delivery = cart?.length * 150;
+  const delivery = itemsList?.length * 150;
 
   const total = subtotal - discount + delivery;
 
   const summaryItems = [
     {
       name: 'subtotal',
-      value: `$${subtotal}`,
+      value: formatPriceToString(subtotal),
     },
     {
       name: 'discount',
@@ -41,17 +52,22 @@ export default function OrderSummary({ showLinks = true }: OrderSummaryProps) {
     },
     {
       name: 'delivery fee',
-      value: `$${delivery}`,
+      value: formatPriceToString(delivery),
     },
     {
       name: 'total',
-      value: `$${total}`,
+      value: formatPriceToString(total),
     },
   ];
 
   const linkStyles = '';
   return (
-    <div className='col-span-3 md:col-span-1 md:sticky md:top-10 h-fit'>
+    <div
+      className={mergeStyles(
+        'col-span-3 md:col-span-1 md:sticky md:top-10 h-fit',
+        styles
+      )}
+    >
       <h3 className='font-bold text-lg md:text-xl capitalize mb-3'>
         order summary
       </h3>

@@ -44,7 +44,7 @@ export default function ShippingDetails() {
   });
 
   const handleFormSubmit = handleSubmit(async (data) => {
-    console.log(data);
+    // console.log(data);
   });
   const cart = useCartStore((state) => state.cart);
   if (!cart || cart.length === 0) {
@@ -66,7 +66,7 @@ export default function ShippingDetails() {
     return fields.every((field) => errorsList.includes(field));
   };
   const check = isStepComplete(['full_name', 'card', 'email']);
-  console.log(check, 'check', errors);
+
   const fieldItems = getFieldList(errors);
   return (
     <form
