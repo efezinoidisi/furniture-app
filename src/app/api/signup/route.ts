@@ -1,6 +1,5 @@
 import { NextResponse, NextRequest } from 'next/server';
 import bcrypt from 'bcryptjs';
-// import prisma from '@/lib/db';
 import { z } from 'zod';
 
 const SignUp = z.object({

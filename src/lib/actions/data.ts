@@ -18,7 +18,7 @@ export async function getProduct(id: string) {
     }
     return data;
   } catch (error) {
-    throw new Error('failed to fetch product');
+    console.log(error);
   }
 }
 
