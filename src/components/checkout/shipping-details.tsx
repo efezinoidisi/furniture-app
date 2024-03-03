@@ -1,51 +1,21 @@
 'use client';
 import { Icons } from '@/lib/icons';
 import DefaultButton from '../buttons/default-button';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { BillingInfoSchema } from '@/types/schemas';
-import { z } from 'zod';
-import {
-  FieldError,
-  FieldErrors,
-  Path,
-  UseFormRegister,
-  useForm,
-} from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import FormField from '../shared/form-field';
 import { useCartStore } from '../store/cart-store';
-
-type FieldsType = z.infer<typeof BillingInfoSchema>;
+import { useSession } from '../store/contexts/session-context';
+import { shippingDetailsAction } from '../../app/checkout/action';
+import { useFormState, useFormStatus } from 'react-dom';
+import { mergeStyles } from '@/utils/style-helpers';
 
 export default function ShippingDetails() {
-  const initialValues: FieldsType = {
-    full_name: '',
-    address: '',
-    appartment: '',
-    city: '',
-    phone_number: '',
-    email: '',
-    cash_on_delivery: false,
-    card: '',
-  };
+  const { pending } = useFormStatus();
+  const [state, formAction] = useFormState(shippingDetailsAction, null);
+  console.log(pending);
+  const cardRef = useRef<HTMLInputElement | null>(null);
 
-  const [formSteps, setFormSteps] = useState(0);
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isSubmitting },
-    setValue,
-  } = useForm({
-    resolver: zodResolver(BillingInfoSchema),
-    defaultValues: initialValues,
-  });
-
-  const handleFormSubmit = handleSubmit(async (data) => {
-    // console.log(data);
-  });
   const cart = useCartStore((state) => state.cart);
   if (!cart || cart.length === 0) {
     return (
@@ -61,178 +31,152 @@ export default function ShippingDetails() {
     );
   }
 
-  const isStepComplete = (fields: string[]) => {
-    const errorsList = Object.keys(errors);
-    return fields.every((field) => errorsList.includes(field));
-  };
-  const check = isStepComplete(['full_name', 'card', 'email']);
+  const fieldItems = getFieldList();
 
-  const fieldItems = getFieldList(errors);
   return (
-    <form
-      className='md: w-full flex flex-col gap-y-6'
-      onSubmit={handleFormSubmit}
-    >
+    <form className='md: w-full flex flex-col gap-y-6' action={formAction}>
+      <div className=''>
+        {/* {state?.error.message && <p>{state.error.message}</p>} */}
+      </div>
+
       {fieldItems.map((field) => (
-        <FormField key={field.fieldName} register={register} {...field} />
+        <div className='flex flex-col gap-1 py-1' key={field.id}>
+          <label htmlFor={field.id} className='capitalize font-semibold'>
+            {field.label}
+          </label>
+
+          <input
+            type={field.type || 'text'}
+            id={field.id}
+            name={field.id}
+            placeholder={field.placeholder}
+            className='w-full h-full invalid:border-pink-500 focus-within:border-blue-500/50 focus-within:shadow-lg py-3 px-2 focus-within:outline-none border border-black/20 rounded-lg'
+            aria-invalid={!!state?.errors[field.id]}
+          />
+          {state?.errors[field.id] ? (
+            <span className='text-pink-500 text-sm' role='alert'>
+              {state.errors[field.id]?.toString()}
+            </span>
+          ) : null}
+        </div>
       ))}
       <div>
         <p className='capitalize font-semibold'>card type</p>
         <div className='flex items-center gap-3'>
           {paymentGateways.map(({ img, value }) => {
-            // const active = paymentValue === value;
+            const active = cardRef.current?.value === value;
             return (
-              <Image
-                src={img}
-                alt={value}
-                width={500}
-                height={500}
-                unoptimized
+              <DefaultButton
                 key={value}
-                className={`w-20 py-2 px-5 cursor-pointer hover:border`}
-                onClick={() => {
-                  setValue('card', value);
-                }}
-              />
+                className={mergeStyles(
+                  'h-full hover:border hover:border-primary/40 px-3     ',
+                  active && 'border border-primary/60'
+                )}
+              >
+                <Image
+                  src={img}
+                  alt={value}
+                  width={500}
+                  height={500}
+                  unoptimized
+                  className={`w-14`}
+                  onClick={() => {
+                    if (cardRef.current) {
+                      cardRef.current.value = value;
+                    }
+                  }}
+                />
+              </DefaultButton>
             );
           })}
+
+          <input
+            type='text'
+            className='hidden'
+            ref={cardRef}
+            id='card-type'
+            name='card-type'
+          />
         </div>
-        {errors?.card ? (
-          <span role='alert' className='text-pink-500 text-sm'>
-            {errors?.card.message}
+        {state?.errors.card ? (
+          <span className='text-pink-500 text-sm' role='alert'>
+            {state.errors.card[0]}
           </span>
         ) : null}
       </div>
-      <label htmlFor='' className='flex gap-1 items-center'>
-        <input type='checkbox' {...register('cash_on_delivery')} />
+      <label className='flex gap-1 items-center'>
+        <input type='checkbox' id='cash-on-delivery' name='cash-on-delivery' />
         cash on delivery
       </label>
-      <DefaultButton type='submit'>submit</DefaultButton>
+      <DefaultButton
+        type='submit'
+        aria-disabled={pending}
+        className='capitalize disabled:bg-gray-500 disabled:pointer-events-none bg-black/95 rounded-md text-white py-3'
+      >
+        proceed with order
+      </DefaultButton>
     </form>
   );
 }
 
-const getFieldList = (
-  errors: FieldErrors<FieldsType>
-): {
-  fieldName: Path<FieldsType>;
-  error: FieldError | undefined;
-  id: string;
+const getFieldList = (): {
+  id:
+    | 'full_name'
+    | 'address'
+    | 'state'
+    | 'country'
+    | 'city'
+    | 'phone_number'
+    | 'card'
+    | 'cash_on_delivery'
+    | 'apartment';
   placeholder?: string;
   label: string;
   type?: string;
-  value?: string;
+  required?: boolean;
 }[] => {
   return [
     {
-      fieldName: 'full_name',
-      error: errors.full_name,
       id: 'full_name',
       placeholder: 'John Doe',
       label: 'full name',
     },
     {
-      fieldName: 'address',
-      error: errors.address,
       id: 'address',
       placeholder: '23 bole avenue',
       label: 'street address',
+      required: true,
     },
     {
-      fieldName: 'appartment',
-      error: errors.appartment,
       id: 'apartment',
       placeholder: 'peak house, 2nd floor,room 2',
       label: 'apartment,floor,e.t.c(optional)',
     },
     {
-      fieldName: 'city',
-      error: errors.city,
+      id: 'country',
+      placeholder: 'Nigeria',
+      label: 'country',
+      required: true,
+    },
+    {
+      id: 'state',
+      placeholder: 'Lagos',
+      label: 'state',
+      required: true,
+    },
+    {
       id: 'city',
       placeholder: 'Ikeja | Atlanta',
       label: 'town/city',
+      required: true,
     },
     {
-      fieldName: 'phone_number',
-      error: errors.phone_number,
       id: 'phone_number',
       placeholder: '+234900000000',
       label: 'phone number',
-    },
-    {
-      fieldName: 'email',
-      error: errors.email,
-      id: 'email',
-      placeholder: 'user@example.com',
-      label: 'email address',
+      required: true,
     },
   ];
-};
-
-const ShippingInformation = () => {
-  return (
-    <div className='bg-white rounded-xl py-2 px-4'>
-      <div className='flex items-center justify-between gap-x-1'>
-        <h3 className='capitalize text-nowrap font-semibold text-sm'>
-          shipping information
-        </h3>
-        <DefaultButton className='flex text-nowrap text-xs items-center text-grey-100'>
-          change address
-          <Icons.pen size={20} />
-        </DefaultButton>
-      </div>
-      <p className='max-w-[10rem] text-wrap text-grey-100 text-sm mt-5 leading-6'>
-        455 Marlborough Ave. West Bend, WI 53095
-      </p>
-    </div>
-  );
-};
-
-const PaymentCard = () => {
-  const [paymentValue, setPaymentValue] = useState('');
-
-  const handleClick = (value: string) => {
-    setPaymentValue(value);
-  };
-
-  return (
-    <div className='bg-white rounded-xl py-2 px-4'>
-      <h3>select your payment card</h3>
-      <div className='flex items-center mt-4'>
-        <input
-          type='radio'
-          value={paymentValue}
-          readOnly
-          className='mr-2'
-          checked={!!paymentValue}
-          aria-label='select payment card'
-        />
-        <div className='flex items-center gap-3'>
-          {paymentGateways.map(({ img, value }) => {
-            const active = paymentValue === value;
-            return (
-              <Image
-                src={img}
-                alt={value}
-                width={200}
-                height={200}
-                unoptimized
-                key={value}
-                className={`w-40 py-2 px-5 ${
-                  active ? 'border border-grey-200/80' : ''
-                }`}
-                onClick={() => setPaymentValue(value)}
-              />
-            );
-          })}
-        </div>
-      </div>
-      <div className='flex items-center gap-2 mt-3 text-grey-100'>
-        <input type='radio' name='cash-on-delivery' id='cash-on-delivery' />
-        <label htmlFor='cash-on-delivery'>Cash on Delivery</label>
-      </div>
-    </div>
-  );
 };
 
 type LabelledInputProps = {
@@ -240,16 +184,12 @@ type LabelledInputProps = {
   type?: string;
   id: string;
   placeholder: string;
-  value: string;
-  handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 const LabelledInput = ({
   label,
   id,
   placeholder,
-  value,
   type = 'text',
-  handleChange,
 }: LabelledInputProps) => {
   return (
     <div className='flex flex-col gap-y-2'>
@@ -261,76 +201,9 @@ const LabelledInput = ({
         type={type}
         id={id}
         placeholder={placeholder}
-        value={value}
-        onChange={handleChange}
         className='w-full border border-black/30 py-3 focus-within:outline-none focus:border-primary/70 focus:shadow-lg px-3 placeholder:capitalize rounded-xl'
       />
     </div>
-  );
-};
-
-const PaymentForm = () => {
-  const initialValues = {
-    fullName: '',
-    cardNumber: '',
-    cvv: '',
-    expiryDate: '',
-  };
-  const [formData, setFormData] = useState(initialValues);
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { value, name } = event.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-  };
-  return (
-    <form
-      className='bg-white rounded-xl py-2 px-4 flex flex-col gap-y-3'
-      onSubmit={handleFormSubmit}
-    >
-      <LabelledInput
-        id='fullName'
-        placeholder='enter your full name'
-        value={formData.fullName}
-        handleChange={handleChange}
-        label='fullname'
-      />
-      <LabelledInput
-        id='cardNumber'
-        placeholder='enter your card number'
-        value={formData.cardNumber}
-        handleChange={handleChange}
-        label='card number'
-        type='number'
-      />
-      <div className='flex items-center justify-between gap-2'>
-        <LabelledInput
-          id='expiryDate'
-          placeholder='expiry date'
-          value={formData.expiryDate}
-          handleChange={handleChange}
-          label='expiry date'
-          type='date'
-        />
-        <LabelledInput
-          id='cvv'
-          placeholder='CVV'
-          value={formData.cvv}
-          handleChange={handleChange}
-          label='CVV'
-          type='number'
-        />
-      </div>
-      <DefaultButton
-        type='submit'
-        className='w-fit self-center bg-black text-white px-5 py-2 capitalize'
-      >
-        proceed
-      </DefaultButton>
-    </form>
   );
 };
 
