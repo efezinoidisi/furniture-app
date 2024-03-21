@@ -24,19 +24,14 @@ export default function Share() {
     if (!url) {
       return;
     }
-    console.log("value is", url);
 
-    navigator.clipboard
-      .writeText(url)
-      .then(() => {
-        setIsCopied(true);
+    navigator.clipboard.writeText(url).then(() => {
+      setIsCopied(true);
 
-        setTimeout(() => {
-          setIsCopied(false);
-          console.log("fail");
-        }, 2000);
-      })
-      .catch((err) => console.log(err));
+      setTimeout(() => {
+        setIsCopied(false);
+      }, 2000);
+    });
   };
 
   return (
