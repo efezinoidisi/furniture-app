@@ -1,7 +1,6 @@
 'use client';
-import { ProductType } from '@/types/product';
-import DefaultButton from './default-button';
 import { Icons } from '@/lib/icons';
+import { ProductType } from '@/types/product';
 import { useCartStore } from '../store/cart-store';
 
 type AddToCartProps = {
@@ -22,8 +21,8 @@ export default function AddToCart({
   };
 
   return (
-    <DefaultButton type='button' className={className} onClick={addItemToCart}>
+    <button type='button' className={className} onClick={addItemToCart}>
       {showText ? 'Add to cart' : <Icons.cart size={20} />}
-    </DefaultButton>
+    </button>
   );
 }
