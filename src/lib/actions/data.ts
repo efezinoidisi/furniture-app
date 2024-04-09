@@ -1,16 +1,16 @@
-'use server';
+"use server";
 
-import createSupabaseServerClient from '../supabase/server';
-import { cookies } from 'next/headers';
+import { cookies } from "next/headers";
+import createSupabaseServerClient from "../supabase/server";
 
 export async function getProduct(id: string) {
   const cookieStore = cookies();
   try {
     const supabase = await createSupabaseServerClient(cookieStore);
     const { data, error } = await supabase
-      .from('product')
-      .select('*, category (name,id)')
-      .eq('id', id)
+      .from("product")
+      .select("*, category (name,id)")
+      .eq("id", id)
       .single();
 
     if (error) {
@@ -28,7 +28,7 @@ export async function getAllProducts() {
   try {
     const supabase = await createSupabaseServerClient(cookieStore);
     const { data, error } = await supabase
-      .from('product')
+      .from("product")
       .select(`*, category (name,id)`);
 
     if (error) {
@@ -37,7 +37,7 @@ export async function getAllProducts() {
     return data;
   } catch (error) {
     console.log(error);
-    throw new Error('failed to fetch products');
+    // throw new Error('failed to fetch products');
   }
 }
 
@@ -47,7 +47,7 @@ export async function getCart() {
   try {
     const supabase = await createSupabaseServerClient(cookieStore);
     const { data, error } = await supabase
-      .from('cart')
+      .from("cart")
       .select(`quantity, product (*)`);
     if (error) {
       throw new Error(error.message);
@@ -56,6 +56,6 @@ export async function getCart() {
     return data;
   } catch (error) {
     console.log(error);
-    throw new Error('failed to fetch cart');
+    // throw new Error("failed to fetch cart");
   }
 }
