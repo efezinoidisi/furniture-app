@@ -1,5 +1,4 @@
-import { Dispatch, SetStateAction } from 'react';
-import { CartItem, ProductType } from './product';
+import { CartItem, ProductType } from "./product";
 
 export type CartContextType = {
   cart: CartItem[];
@@ -13,5 +12,4 @@ export type CartContextType = {
 
 export type SessionContextType = {
   isSignedIn: boolean;
-  // setIsSignedIn: Dispatch<SetStateAction<boolean>>;
 };
