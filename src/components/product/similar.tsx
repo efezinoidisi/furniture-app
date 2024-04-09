@@ -1,5 +1,5 @@
-import { getAllProducts } from '@/lib/actions/data';
-import ProductCarousel from '../carousel/product-carousel';
+import { getAllProducts } from "@/lib/actions/data";
+import ProductCarousel from "../carousel/product-carousel";
 
 type SimilarProps = {
   category?: string;
@@ -7,7 +7,7 @@ type SimilarProps = {
 };
 
 export default async function Similar({ category, productId }: SimilarProps) {
-  const products = await getAllProducts();
+  const products = (await getAllProducts()) || [];
 
   const similarProducts = products.filter(
     (product) => product.id !== productId && product.category?.name === category
@@ -15,7 +15,7 @@ export default async function Similar({ category, productId }: SimilarProps) {
 
   return (
     <>
-      <h3 className='font-semibold capitalize text-xl mt-6 mb-3'>
+      <h3 className="font-semibold capitalize text-xl mt-6 mb-3">
         similar products
       </h3>
       <ProductCarousel products={similarProducts} />
