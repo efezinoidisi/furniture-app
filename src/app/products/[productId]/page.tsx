@@ -1,14 +1,13 @@
 import BreadCrump from "@/components/breadcrumb/breadcrump";
 import AddToCart from "@/components/buttons/add-to-cart";
+import AddToWishlist from "@/components/buttons/add-to-wishlist";
 import Back from "@/components/buttons/back";
-import DefaultButton from "@/components/buttons/default-button";
 import Colors from "@/components/product/colors";
 import ProductCount from "@/components/product/product-count";
 import Share from "@/components/product/share";
 import Similar from "@/components/product/similar";
 import ProductPrice from "@/components/shared/product-price";
 import { getProduct } from "@/lib/actions/data";
-import { Icons } from "@/lib/icons";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -45,10 +44,7 @@ export default async function ProductPage(props: Props) {
       <h2 className="sr-only">product details</h2>
       <BreadCrump items={breadCrump} />
       <div className="flex items-center gap-5 text-grey-100">
-        <DefaultButton className="flex items-center gap-1 text-black capitalize">
-          <Icons.bookmark className="bg-[#DFE7EB] p-2 rounded-full" size={40} />{" "}
-          save
-        </DefaultButton>
+        <AddToWishlist variant="save" product={product} />
         <Share />
       </div>
 
