@@ -1,5 +1,6 @@
 import createSupabaseClient from "@/lib/supabase/client";
 import { CartItem, ProductType } from "@/types/product";
+import { toast } from "react-hot-toast";
 import { createStore } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 
@@ -51,7 +52,7 @@ export const createCartStore = (initState: CartState = { cart: [] }) => {
             updatedCart = [{ product, quantity: 1 }, ...get().cart];
           }
           set({ cart: updatedCart });
-
+          toast.success(`${product.name} added to cart!`);
           // update supabase data if user is signed in. revert local cart state to previous state if it fails
 
           const supabase = createSupabaseClient();
@@ -70,7 +71,7 @@ export const createCartStore = (initState: CartState = { cart: [] }) => {
               });
             } catch (error) {
               set({ cart: prevCartState });
-              // toast.error("please try again!");
+              toast.error("please try again!");
             }
           }
         },

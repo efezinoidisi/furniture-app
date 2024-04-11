@@ -9,6 +9,7 @@ import { useSession } from "../store/contexts/session-context";
 import UserNavDropdown from "../user/user-nav-dropdown";
 import CartLink from "./cart";
 import NavLinks from "./nav-links";
+import WishlistLink from "./wishlist";
 
 export default function MainNav() {
   const [showMenu, setShowMenu] = useState(false);
@@ -19,7 +20,7 @@ export default function MainNav() {
   };
 
   return (
-    <header className="flex justify-between py-10 w-11/12 lg:w-4/5 mx-auto ">
+    <header className="flex justify-between py-10 w-11/12 lg:w-4/5 mx-auto">
       <div className="flex gap-3 md:gap-7">
         <DefaultButton
           className="text-primary md:hidden link"
@@ -43,12 +44,7 @@ export default function MainNav() {
         linkStyle="first:text-primary font-bold text-black first:border-b-2 first:border-primary capitalize link hover:text-primary/80"
       />
       <div className="flex items-center gap-1 md:gap-3">
-        <Link
-          href={"/wishlist"}
-          className="text-primary rounded-[2rem] p-2 capitalize link group"
-        >
-          <Icons.heart className="group-hover:fill-white" />
-        </Link>
+        <WishlistLink />
         <CartLink />
 
         <UserNavDropdown />
