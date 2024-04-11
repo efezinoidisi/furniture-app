@@ -1,7 +1,9 @@
-'use client';
-import { readUserSession } from '@/lib/actions/user';
-import createSupabaseClient from '@/lib/supabase/client';
-import { SessionContextType } from '@/types/context';
+"use client";
+import createSupabaseClient from "@/lib/supabase/client";
+import { useCartStore } from "@/providers/cart-store-provider";
+import useWishlistStore from "@/stores/wishlist-store";
+import { SessionContextType } from "@/types/context";
+import { CartItem } from "@/types/product";
 import {
   ReactNode,
   createContext,
@@ -9,7 +11,7 @@ import {
   useEffect,
   useMemo,
   useState,
-} from 'react';
+} from "react";
 
 const UserSession = createContext<null | SessionContextType>(null);
 
@@ -19,6 +21,9 @@ export default function SessionProvider({ children }: { children: ReactNode }) {
     return !!userSession;
   }, [userSession]);
   const supabase = createSupabaseClient();
+  const setCart = useCartStore((state) => state.setCart);
+
+  const setWishlist = useWishlistStore((state) => state.setWishlist);
 
   useEffect(() => {
     const {
@@ -26,6 +31,22 @@ export default function SessionProvider({ children }: { children: ReactNode }) {
     } = supabase.auth.onAuthStateChange((_, session) => {
       if (session) {
         setUserSession(true);
+        supabase
+          .from("cart")
+          .select(`quantity, product (*)`)
+          .then((data) => {
+            if (data.data) {
+              setCart(data.data as CartItem[]);
+            }
+          });
+        supabase
+          .from("wishlist")
+          .select(`product (*)`)
+          .then((res) => {
+            if (res.data) {
+              setWishlist(res.data as []);
+            }
+          });
       } else {
         setUserSession(false);
       }

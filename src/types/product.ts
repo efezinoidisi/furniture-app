@@ -20,3 +20,7 @@ export type CartItem = {
   product: ProductType;
   quantity: number;
 };
+
+export type WishlistType = {
+  product: ProductType;
+};

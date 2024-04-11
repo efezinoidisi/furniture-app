@@ -1,7 +1,7 @@
-'use client';
-import { Icons } from '@/lib/icons';
-import { ProductType } from '@/types/product';
-import { useCartStore } from '../store/cart-store';
+"use client";
+import { Icons } from "@/lib/icons";
+import { useCartStore } from "@/providers/cart-store-provider";
+import { ProductType } from "@/types/product";
 
 type AddToCartProps = {
   product: ProductType;
@@ -21,8 +21,8 @@ export default function AddToCart({
   };
 
   return (
-    <button type='button' className={className} onClick={addItemToCart}>
-      {showText ? 'Add to cart' : <Icons.cart size={20} />}
+    <button type="button" className={className} onClick={addItemToCart}>
+      {showText ? "Add to cart" : <Icons.cart size={20} />}
     </button>
   );
 }
