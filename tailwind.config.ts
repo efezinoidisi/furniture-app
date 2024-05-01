@@ -27,6 +27,10 @@ const config: Config = {
           400: "#505050",
         },
         plain: "#E3F0FA",
+        accent: "#150640",
+        secondary: "#C5B9D3",
+        charcoal: "#222023",
+        green: "#09332C",
       },
 
       blur: {
