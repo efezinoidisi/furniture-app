@@ -3,6 +3,7 @@ import { signInWithEmailAndPassword } from "@/lib/actions/auth";
 import { SignInSchema } from "@/types/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import DefaultButton from "../buttons/default-button";
@@ -18,6 +19,8 @@ export default function Login({ next = "" }: LoginFormProps) {
     password: "",
     email: "",
   };
+
+  const { push } = useRouter();
 
   const {
     register,
@@ -37,6 +40,7 @@ export default function Login({ next = "" }: LoginFormProps) {
         toast.error(res.error.message);
       } else {
         toast.success("signed in!");
+        push(`/${next}`);
       }
     } catch (error) {
       console.log(error);

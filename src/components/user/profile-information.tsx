@@ -1,3 +1,4 @@
+import { dateString } from "@/utils/helper-functions";
 import Link from "next/link";
 
 type ProfileInformationProps = {
@@ -11,11 +12,8 @@ export default function ProfileInformation({
   email,
   created_at,
 }: ProfileInformationProps) {
-  const dateRegistered = new Date(created_at).toLocaleDateString("en-us", {
-    day: "2-digit",
-    month: "long",
-    year: "numeric",
-  });
+  const dateRegistered = dateString(created_at);
+
   const profileInformation = [
     {
       id: 0,

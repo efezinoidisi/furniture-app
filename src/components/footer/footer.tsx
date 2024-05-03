@@ -84,7 +84,7 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="flex lg:justify-between lg:flex-row flex-col items-center lg:items-start gap-2 text-xs">
+      <div className="flex lg:justify-between lg:flex-row flex-col items-center lg:items-start gap-2 text-sm px-5 md:px-14 lg:px-20">
         <p>© {year} ZFurniture. All rights reserved.</p>
         <div>
           <NavLinks

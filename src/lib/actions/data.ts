@@ -59,3 +59,19 @@ export async function getCart() {
     // throw new Error("failed to fetch cart");
   }
 }
+
+export async function getShippingDetails() {
+  const cookieStore = cookies();
+
+  try {
+    const supabase = await createSupabaseServerClient(cookieStore);
+    const { data, error } = await supabase.from("shipment").select();
+    if (error) {
+      throw new Error(error.message);
+    }
+
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+}

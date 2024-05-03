@@ -1,9 +1,11 @@
-import BreadCrump from '@/components/breadcrumb/breadcrump';
-import Back from '@/components/buttons/back';
-import OrderPreview from '@/components/checkout/order-preview';
-import ShippingDetails from '@/components/checkout/shipping-details';
-import { ProductType } from '@/types/product';
-import { getProduct } from '@/lib/actions/data';
+import Back from "@/components/buttons/back";
+import OrderPreview from "@/components/checkout/order-preview";
+import ShippingDetails from "@/components/checkout/shipping-details";
+import PageHeader from "@/components/shared/page-header";
+import { getProduct, getShippingDetails } from "@/lib/actions/data";
+import { getUser } from "@/lib/actions/user";
+import { ProductType } from "@/types/product";
+import { redirect } from "next/navigation";
 
 type CheckoutPageprops = {
   searchParams: { id?: string };
@@ -11,7 +13,7 @@ type CheckoutPageprops = {
 
 export default async function CheckoutPage(props: CheckoutPageprops) {
   const {
-    searchParams: { id = '' },
+    searchParams: { id = "" },
   } = props;
 
   let product: ProductType | null = null;
@@ -19,18 +21,20 @@ export default async function CheckoutPage(props: CheckoutPageprops) {
   if (id) {
     product = (await getProduct(id)) as ProductType;
   }
+  const user = await getUser();
+
+  if (!user) {
+    redirect("/login?from=checkout");
+  }
+
+  const addresses = await getShippingDetails();
+
   return (
-    <main className='page-size flex flex-col gap-y-3'>
-      <Back />
-      <h2 className='font-bold capitalize font-fira-code text-2xl'>checkout</h2>
-      <BreadCrump
-        items={[
-          { path: '/cart', title: 'cart' },
-          { path: '/checkout', title: 'checkout' },
-        ]}
-      />
-      <section className='grid md:grid-cols-2 gap-x-10 gap-y-9'>
-        <ShippingDetails />
+    <main className="flex flex-col gap-y-3">
+      <PageHeader title={"checkout"} />
+      <Back className="px-5 md:px-14 mb-3" />
+      <section className="grid md:grid-cols-2 gap-x-10 gap-y-9 px-5 md:px-14 lg:px-20">
+        <ShippingDetails addresses={addresses || []} />
         <OrderPreview product={product} />
       </section>
     </main>

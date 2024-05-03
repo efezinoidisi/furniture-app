@@ -22,7 +22,7 @@ export default async function ProfilePage({
   } = await supabase.auth.getUser();
 
   if (!user?.id || error) {
-    redirect("/login");
+    redirect("/login?from=profile");
   }
 
   return (
