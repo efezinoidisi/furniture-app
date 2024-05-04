@@ -49,4 +49,10 @@ export const BillingInfoSchema = zfd.formData({
 
 export const AddressSchema = z.object({
   address: z.string().min(1),
+  total_price: z.string().min(1),
+});
+
+export const PaymentSchema = z.object({
+  amount: z.string().min(1),
+  method: z.string().min(1),
 });

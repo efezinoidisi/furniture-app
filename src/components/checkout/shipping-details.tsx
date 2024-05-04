@@ -1,12 +1,13 @@
 "use client";
 import { useCartStore } from "@/providers/cart-store-provider";
 import { Address } from "@/types/shipping";
+import { calculateTotals } from "@/utils/helper-functions";
 import Link from "next/link";
 import { useState } from "react";
-import { StepOne } from "./order-steps";
+import { StepOne, StepTwo } from "./order-steps";
 
 type Props = {
-  addresses: Address;
+  addresses: Array<Address>;
 };
 
 export default function ShippingDetails({ addresses }: Props) {
@@ -14,13 +15,21 @@ export default function ShippingDetails({ addresses }: Props) {
 
   const [step, setStep] = useState(0);
 
+  const { total } = calculateTotals(cart);
+
   const nextStep = () => {
     if (step >= 2) return;
     setStep((prev) => prev + 1);
   };
 
   const forms = [
-    <StepOne addresses={addresses} key={"address"} nextStep={nextStep} />,
+    <StepOne
+      addresses={addresses}
+      key={"address"}
+      nextStep={nextStep}
+      total={total}
+    />,
+    <StepTwo key={"payment method"} nextStep={nextStep} total={total} />,
   ];
 
   if (!cart || cart.length === 0) {

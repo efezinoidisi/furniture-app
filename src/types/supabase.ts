@@ -27,14 +27,14 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "public_cart_product_id_fkey"
+            foreignKeyName: "cart_product_id_fkey"
             columns: ["product_id"]
             isOneToOne: false
             referencedRelation: "product"
             referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "public_cart_user_id_fkey"
+            foreignKeyName: "cart_user_id_fkey"
             columns: ["user_id"]
             isOneToOne: false
             referencedRelation: "users"
@@ -114,30 +114,41 @@ export type Database = {
           created_at: string
           id: string
           order_id: string | null
-          price: number | null
-          product_id: number | null
-          quantity: number | null
+          product_id: string
+          quantity: number
           user_id: string
         }
         Insert: {
           created_at?: string
           id?: string
           order_id?: string | null
-          price?: number | null
-          product_id?: number | null
-          quantity?: number | null
+          product_id: string
+          quantity?: number
           user_id: string
         }
         Update: {
           created_at?: string
           id?: string
           order_id?: string | null
-          price?: number | null
-          product_id?: number | null
-          quantity?: number | null
+          product_id?: string
+          quantity?: number
           user_id?: string
         }
         Relationships: [
+          {
+            foreignKeyName: "order_item_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "order"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "order_item_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "product"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "order_item_user_id_fkey"
             columns: ["user_id"]
@@ -145,38 +156,39 @@ export type Database = {
             referencedRelation: "users"
             referencedColumns: ["id"]
           },
-          {
-            foreignKeyName: "public_order_item_order_id_fkey"
-            columns: ["order_id"]
-            isOneToOne: false
-            referencedRelation: "order"
-            referencedColumns: ["id"]
-          },
         ]
       }
       payment: {
         Row: {
-          amount: number | null
+          amount: number
           created_at: string
-          date: string | null
           id: number
-          method: string | null
+          method: string
+          user_id: string
         }
         Insert: {
-          amount?: number | null
+          amount: number
           created_at?: string
-          date?: string | null
           id?: number
-          method?: string | null
+          method: string
+          user_id: string
         }
         Update: {
-          amount?: number | null
+          amount?: number
           created_at?: string
-          date?: string | null
           id?: number
-          method?: string | null
+          method?: string
+          user_id?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "payment_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       product: {
         Row: {

@@ -19,7 +19,7 @@ export default function MainNav() {
   };
 
   return (
-    <header className="flex justify-between py-10 w-11/12 lg:w-4/5 mx-auto">
+    <header className="flex justify-between py-10 page-size">
       <div className="flex gap-3 md:gap-7">
         <DefaultButton
           className="text-primary md:hidden link"

@@ -1,7 +1,7 @@
 "use client";
 import { useCartStore } from "@/providers/cart-store-provider";
 import { CartItem } from "@/types/product";
-import { formatPriceToString } from "@/utils/helper-functions";
+import { calculateTotals, formatPriceToString } from "@/utils/helper-functions";
 import { mergeStyles } from "@/utils/style-helpers";
 import Link from "next/link";
 
@@ -16,30 +16,13 @@ export default function OrderSummary({
   items = null,
   styles = "",
 }: OrderSummaryProps) {
-  const cart = useCartStore((state) => state.cart);
+  const { cart } = useCartStore((state) => state);
 
   if ((!cart || !cart.length) && !items) return null;
 
   const itemsList = items || cart;
 
-  const subtotal = itemsList.reduce(
-    (sum, item) => sum + item?.product.price * item.quantity,
-    0
-  );
-
-  const discount = itemsList.reduce(
-    (sum, item) =>
-      sum +
-      item.quantity *
-        (item?.product.discount
-          ? getDiscount(item.product.price, item.product.discount)
-          : 0),
-    0
-  );
-
-  const delivery = itemsList?.length * 150;
-
-  const total = subtotal - discount + delivery;
+  const { subtotal, total, delivery, discount } = calculateTotals(itemsList);
 
   const summaryItems = [
     {
@@ -60,7 +43,6 @@ export default function OrderSummary({
     },
   ];
 
-  const linkStyles = "";
   return (
     <div
       className={mergeStyles(

@@ -2,8 +2,8 @@ import Image from "next/image";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="grid md:grid-cols-2 gap-x-10 pb-5">
-      <div className="hidden md:block w-full px-7">
+    <div className="grid md:grid-cols-2 gap-x-10 pb-5 page-size">
+      <div className="hidden md:block w-full">
         <Image
           src={"/assets/images/auth.png"}
           width={600}
