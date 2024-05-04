@@ -289,6 +289,37 @@ export async function getAddress(id: string) {
   return data;
 }
 
+export async function removeOrderItemsFromStock(orderId: string) {
+  const cookieStore = cookies();
+
+  const supabase = await createSupabaseServerClient(cookieStore);
+
+  const { data, error } = await supabase
+    .from("order_item")
+    .select(`quantity, product (id, stock)`)
+    .eq("order_id", orderId);
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  data.forEach(async (item) => {
+    if (!item.product) return;
+
+    const stock = item.product.stock - item.quantity;
+    const { error: updateError } = await supabase
+      .from("product")
+      .update({
+        stock,
+      })
+      .eq("id", item.product.id);
+
+    if (updateError) {
+      throw new Error(updateError.message);
+    }
+  });
+}
+
 export async function paymentAction(
   _: State | undefined,
   formData: FormData
@@ -359,6 +390,9 @@ export async function paymentAction(
         message: orderError.message,
       };
     }
+
+    removeOrderItemsFromStock(orderId.value);
+    
     cookieStore.delete("zf-order-id");
 
     return {

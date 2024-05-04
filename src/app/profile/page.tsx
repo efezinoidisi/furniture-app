@@ -1,12 +1,15 @@
+import PageHeader from "@/components/shared/page-header";
 import ProfileInformation from "@/components/user/profile-information";
 import ProfileTabs from "@/components/user/profile-tab";
+import UserAddresses from "@/components/user/user-addresses";
+import { getShippingDetails } from "@/lib/actions/data";
 import createSupabaseServerClient from "@/lib/supabase/server";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
 type ProfilePageProps = {
   searchParams: {
-    t?: "profile" | "address" | "orders"; // tab
+    t?: "profile" | "addresses" | "orders"; // tab
   };
 };
 
@@ -25,21 +28,30 @@ export default async function ProfilePage({
     redirect("/login?from=profile");
   }
 
-  return (
-    <section className="grid md:grid-cols-[auto_1fr] gap-9 px-5">
-      {/* tab navigation */}
-      <ProfileTabs currentTab={t} />
+  const addresses = (await getShippingDetails()) ?? [];
 
-      {/* user profile information */}
-      {t === "profile" ? (
-        <ProfileInformation
-          username={user.user_metadata.user_name || user.user_metadata.name}
-          email={user.email}
-          created_at={user.created_at}
-        />
-      ) : null}
-    </section>
+  const tabs = {
+    profile: (
+      <ProfileInformation
+        username={user.user_metadata.user_name || user.user_metadata.name}
+        email={user.email}
+        created_at={user.created_at}
+      />
+    ),
+
+    addresses: <UserAddresses addresses={addresses} />,
+    orders: null,
+  };
+
+  return (
+    <main>
+      <PageHeader title="profile" />
+      {/* tab navigation */}
+      <section className="grid md:grid-cols-[auto_1fr] gap-9 page-size">
+        <ProfileTabs currentTab={t} />
+
+        {tabs[t]}
+      </section>
+    </main>
   );
 }
-
-const tabs = ["profile", "address", "orders"];

@@ -2,14 +2,11 @@ import BreadCrump from "@/components/breadcrumb/breadcrump";
 import AddToCart from "@/components/buttons/add-to-cart";
 import AddToWishlist from "@/components/buttons/add-to-wishlist";
 import Back from "@/components/buttons/back";
-import Colors from "@/components/product/colors";
-import ProductCount from "@/components/product/product-count";
 import Share from "@/components/product/share";
 import Similar from "@/components/product/similar";
 import ProductPrice from "@/components/shared/product-price";
 import { getProduct } from "@/lib/actions/data";
 import Image from "next/image";
-import Link from "next/link";
 
 type Props = {
   params: {
@@ -66,26 +63,19 @@ export default async function ProductPage(props: Props) {
           </h3>
           <ProductPrice price={product.price} discount={product.discount} />
           <span
-            className={`self-end px-2 py-1 rounded-3xl capitalize bg-[#DBDEE4] ${
-              product.stock ? "text-[#0DB03A]" : "text-pink-600"
+            className={`self-end px-2 py-1 rounded-3xl capitalize bg-gray-300 ${
+              product.stock ? "text-[#13a33c]" : "text-red-500"
             }`}
           >
-            {product.stock ? "in stock" : "sold out"}
+            {product.stock ? "available" : "sold out"}
           </span>
-          <Colors colors={product.colors} />
-          <ProductCount id={product.id} />
+          {/* <Colors colors={product.colors} /> */}
           <div className="flex items-center gap-5">
             <AddToCart
               product={product}
-              className="bg-black border border-black hover:bg-inherit text-white hover:text-inherit px-6 py-2 capitalize w-full"
+              className="bg-accent border border-black hover:bg-inherit text-white hover:text-inherit px-6 py-2 capitalize w-full"
               showText
             />
-            <Link
-              href={`/checkout?id=${product.id}`}
-              className="px-6 py-2 capitalize border border-black w-full hover:bg-primary/60 hover:text-white hover:border-0  text-center"
-            >
-              buy now
-            </Link>
           </div>
         </div>
       </section>

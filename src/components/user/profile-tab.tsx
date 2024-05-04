@@ -2,12 +2,12 @@ import { mergeStyles } from "@/utils/style-helpers";
 import Link from "next/link";
 import Logout from "../navigation/logout";
 
-const tabs = ["profile", "address", "orders"];
+const tabs = ["profile", "addresses", "orders"];
 
 export default function ProfileTabs({
   currentTab,
 }: {
-  currentTab: "profile" | "orders" | "address";
+  currentTab: "profile" | "orders" | "addresses";
 }) {
   return (
     <div className="bg-white flex flex-col w-full md:min-w-56  gap-2 items-center ">

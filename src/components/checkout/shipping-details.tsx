@@ -2,16 +2,17 @@
 import { useCartStore } from "@/providers/cart-store-provider";
 import { Address } from "@/types/shipping";
 import { calculateTotals } from "@/utils/helper-functions";
+import { mergeStyles } from "@/utils/style-helpers";
 import Link from "next/link";
 import { useState } from "react";
-import { StepOne, StepTwo } from "./order-steps";
+import { StepOne, StepThree, StepTwo } from "./order-steps";
 
 type Props = {
   addresses: Array<Address>;
 };
 
 export default function ShippingDetails({ addresses }: Props) {
-  const cart = useCartStore((state) => state.cart);
+  const { cart, clearCart } = useCartStore((state) => state);
 
   const [step, setStep] = useState(0);
 
@@ -30,6 +31,7 @@ export default function ShippingDetails({ addresses }: Props) {
       total={total}
     />,
     <StepTwo key={"payment method"} nextStep={nextStep} total={total} />,
+    <StepThree key={"success"} clearCart={clearCart} />,
   ];
 
   if (!cart || cart.length === 0) {
@@ -46,5 +48,31 @@ export default function ShippingDetails({ addresses }: Props) {
     );
   }
 
-  return <>{forms[step]}</>;
+  return (
+    <section>
+      <ul className="flex items-center gap-3 justify-start mb-4">
+        {formSteps.map((value, index) => {
+          const isActive = index === step;
+
+          return (
+            <li
+              key={value}
+              className={mergeStyles(
+                "group opacity-90",
+                isActive ? "text-primary" : "text-charcoal"
+              )}
+            >
+              {value}
+              <span className="group-last:hidden ml-3 text-charcoal">
+                {">"}
+              </span>
+            </li>
+          );
+        })}
+      </ul>
+      {forms[step]}
+    </section>
+  );
 }
+
+const formSteps = ["shipping", "payment"];

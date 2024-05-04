@@ -9,7 +9,8 @@ import { useEffect, useState } from "react";
 import { useFormState } from "react-dom";
 import toast from "react-hot-toast";
 import SubmitButton from "../buttons/submit-button";
-import DeleteAddressModal from "../modals/delete-modal";
+import SuccessModal from "../modals/success-modal";
+import AddressItem from "../shared/address-item";
 
 // address selection
 export function StepOne({
@@ -36,6 +37,9 @@ export function StepOne({
 
   return (
     <form action={dispatch} className="flex flex-col gap-y-7">
+      <h3 className="capitalize font-semibold text-charcoal text-xl">
+        select address
+      </h3>
       <div className="border-b-2 border-gray-300 pb-10">
         {addresses.length === 0 ? (
           <p className="text-center">no shipping address yet</p>
@@ -66,60 +70,25 @@ export function StepOne({
   );
 }
 
-function Address({
-  id,
-  apartment,
-  state,
-  street,
-  city,
-  country,
-  full_name,
-  phone_number,
-}: Address) {
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-
-  const closeDeleteModal = () => {
-    setIsDeleteModalOpen(false);
-  };
-
-  const openDeleteModal = () => {
-    setIsDeleteModalOpen(true);
-  };
-
+function Address(props: Address) {
   return (
     <>
       <div className="flex gap-2 items-start justify-start">
         <input
           type="radio"
           name={"address"}
-          id={id}
-          value={id}
+          id={`address-${props.id}`}
+          value={props.id}
           className="size-6"
         />
 
-        <label htmlFor={id} className="border shadow-md px-2   pb-2">
-          <p className="capitalize font-semibold text-lg">{full_name}</p>
-          <p>{`${street}, ${apartment}, ${city}, ${state}, ${country}`}</p>
-          <p className="my-1">{phone_number}</p>
-
-          <Link href={`/address/${id}/edit`} className="text-green capitalize">
-            edit
-          </Link>
-          <button
-            type="button"
-            onClick={openDeleteModal}
-            className="ml-5 capitalize text-red-600"
-          >
-            delete
-          </button>
+        <label
+          htmlFor={`address-${props.id}`}
+          className="border shadow-md px-2   pb-2"
+        >
+          <AddressItem {...props} />
         </label>
       </div>
-
-      <DeleteAddressModal
-        isOpen={isDeleteModalOpen}
-        closeModal={closeDeleteModal}
-        id={id}
-      />
     </>
   );
 }
@@ -211,6 +180,23 @@ export function StepTwo({
   );
 }
 
-export function StepThree() {
-  return <>success</>;
+export function StepThree({ clearCart }: { clearCart: () => void }) {
+  const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(true);
+
+  const closeSuccessModal = () => {
+    setIsSuccessModalOpen(false);
+    clearCart();
+  };
+
+  return (
+    <>
+      <SuccessModal
+        isOpen={isSuccessModalOpen}
+        closeModal={closeSuccessModal}
+        title="order successfully completed!"
+        img="/assets/images/successful-purchase.svg"
+        href="/profile?t=orders"
+      />
+    </>
+  );
 }

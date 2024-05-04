@@ -9,6 +9,7 @@ type ModalWrapperProps = {
   children: ReactNode;
   handleModalClose: () => void;
   className?: string;
+  showCloseButton?: boolean;
 };
 
 export default function Modal({
@@ -16,6 +17,7 @@ export default function Modal({
   children,
   handleModalClose,
   className = "",
+  showCloseButton = true,
 }: ModalWrapperProps) {
   const modalRef = useRef<HTMLDialogElement | null>(null);
 
@@ -37,14 +39,16 @@ export default function Modal({
         className
       )}
     >
-      <button
-        type="button"
-        onClick={handleModalClose}
-        className="text-red-600 absolute top-2 right-2"
-        aria-label="close modal"
-      >
-        <Icons.close size={30} />
-      </button>
+      {showCloseButton && (
+        <button
+          type="button"
+          onClick={handleModalClose}
+          className="text-red-600 absolute top-2 right-2"
+          aria-label="close modal"
+        >
+          <Icons.close size={30} />
+        </button>
+      )}
       {children}
     </dialog>
   );
