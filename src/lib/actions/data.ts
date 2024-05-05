@@ -63,15 +63,27 @@ export async function getCart() {
 export async function getShippingDetails() {
   const cookieStore = cookies();
 
-  try {
-    const supabase = await createSupabaseServerClient(cookieStore);
-    const { data, error } = await supabase.from("shipment").select();
-    if (error) {
-      throw new Error(error.message);
-    }
-
-    return data;
-  } catch (error) {
-    console.log(error);
+  const supabase = await createSupabaseServerClient(cookieStore);
+  const { data, error } = await supabase.from("shipment").select();
+  if (error) {
+    throw new Error(error.message);
   }
+
+  return data;
+}
+
+export async function getAllOrders() {
+  const cookieStore = cookies();
+
+  const supabase = await createSupabaseServerClient(cookieStore);
+  const { data, error } = await supabase
+    .from("order_item")
+    .select(
+      "quantity,id,product (name, price,image),order_id, order (created_at,total_price, shipment_id,payment(method))"
+    );
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return data;
 }

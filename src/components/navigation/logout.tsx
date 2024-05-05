@@ -24,7 +24,7 @@ export default function Logout() {
   return (
     <DefaultButton
       onClick={logout}
-      className="capitalize shadow-md py-3 w-full block text-center text-lg hover:bg-secondary/40 transition-colors duration-200 ease-linear"
+      className="capitalize shadow-md py-3 w-full block text-center text-lg hover:bg-secondary/40 transition-colors duration-200 ease-linear bg-white"
     >
       logout
     </DefaultButton>

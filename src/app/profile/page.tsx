@@ -2,6 +2,7 @@ import PageHeader from "@/components/shared/page-header";
 import ProfileInformation from "@/components/user/profile-information";
 import ProfileTabs from "@/components/user/profile-tab";
 import UserAddresses from "@/components/user/user-addresses";
+import Orders from "@/components/user/user-orders";
 import { getShippingDetails } from "@/lib/actions/data";
 import createSupabaseServerClient from "@/lib/supabase/server";
 import { cookies } from "next/headers";
@@ -40,14 +41,14 @@ export default async function ProfilePage({
     ),
 
     addresses: <UserAddresses addresses={addresses} />,
-    orders: null,
+    orders: <Orders addresses={addresses} />,
   };
 
   return (
     <main>
       <PageHeader title="profile" />
       {/* tab navigation */}
-      <section className="grid md:grid-cols-[auto_1fr] gap-9 page-size">
+      <section className="space-y-9 md:grid md:grid-cols-[auto_1fr] gap-9 page-size md:space-y-0">
         <ProfileTabs currentTab={t} />
 
         {tabs[t]}

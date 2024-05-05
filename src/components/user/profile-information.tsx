@@ -27,7 +27,7 @@ export default function ProfileInformation({
     },
     {
       id: 2,
-      title: "join date",
+      title: "date joined",
       value: dateRegistered,
     },
   ];
