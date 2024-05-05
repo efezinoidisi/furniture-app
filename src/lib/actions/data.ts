@@ -59,3 +59,31 @@ export async function getCart() {
     // throw new Error("failed to fetch cart");
   }
 }
+
+export async function getShippingDetails() {
+  const cookieStore = cookies();
+
+  const supabase = await createSupabaseServerClient(cookieStore);
+  const { data, error } = await supabase.from("shipment").select();
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return data;
+}
+
+export async function getAllOrders() {
+  const cookieStore = cookies();
+
+  const supabase = await createSupabaseServerClient(cookieStore);
+  const { data, error } = await supabase
+    .from("order_item")
+    .select(
+      "quantity,id,product (name, price,image),order_id, order (created_at,total_price, shipment_id,payment(method))"
+    );
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return data;
+}

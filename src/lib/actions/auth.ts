@@ -1,9 +1,10 @@
-'use server';
+"use server";
 
-import { SignInSchema, SignUpSchema } from '@/types/schemas';
-import { z } from 'zod';
-import createSupabaseServerClient from '../supabase/server';
-import { cookies } from 'next/headers';
+import { SignInSchema, SignUpSchema } from "@/types/schemas";
+import { revalidatePath } from "next/cache";
+import { cookies } from "next/headers";
+import { z } from "zod";
+import createSupabaseServerClient from "../supabase/server";
 
 export async function signUpWithEmailAndPassword(
   data: z.infer<typeof SignUpSchema>
@@ -22,6 +23,10 @@ export async function signUpWithEmailAndPassword(
     },
   });
 
+  if (!res.error) {
+    revalidatePath("/", "layout");
+  }
+
   return JSON.stringify(res);
 }
 
@@ -33,6 +38,9 @@ export async function signInWithEmailAndPassword(
   const supabase = await createSupabaseServerClient(cookieStore);
   const res = await supabase.auth.signInWithPassword(data);
 
+  if (!res.error) {
+    revalidatePath("/", "layout");
+  }
   return JSON.stringify(res);
 }
 
@@ -46,6 +54,8 @@ export async function sendPasswordResetLink(email: string) {
 
   return JSON.stringify(res);
 }
+
+
 export async function updatePassword(password: string) {
   const cookieStore = cookies();
 
@@ -64,4 +74,5 @@ export async function logout() {
   if (error) {
     throw new Error(error.message);
   }
+  revalidatePath("/", "layout");
 }

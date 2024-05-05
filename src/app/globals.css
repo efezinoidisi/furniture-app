@@ -27,13 +27,12 @@
 } */
 
 @layer base {
-
   h1,
   h2,
   h3,
   h4,
   h5 {
-    @apply font-fira-code
+    @apply font-fira-code;
   }
 }
 
@@ -48,7 +47,11 @@
   height: 13rem;
   top: 50%;
   right: 0;
-  background-image: linear-gradient(270deg, #C900C1 -7.86%, rgba(201, 0, 193, 0.00) 91.6%);
+  background-image: linear-gradient(
+    270deg,
+    #c900c1 -7.86%,
+    rgba(201, 0, 193, 0) 91.6%
+  );
   background-position: top;
   background-repeat: no-repeat;
   filter: blur(32px);
@@ -57,12 +60,11 @@
 }
 
 .link {
-  transition: all .3s ease-in-out;
+  transition: all 0.3s ease-in-out;
 }
 
 .link:hover {
   transform: scale(1.09, 1.1);
-
 }
 
 @layer components {
@@ -85,13 +87,18 @@
     /* Firefox */
   }
 
-  @media screen and (min-width:765px) {
+  /* modal backdrop */
+  .modal::backdrop {
+    background: hsl(0 0% 0% / 50%);
+  }
+
+  @media screen and (min-width: 765px) {
     .page-size {
       width: 85%;
     }
   }
 
-  @media screen and (min-width:1100px) {
+  @media screen and (min-width: 1100px) {
     .page-size {
       width: 80%;
     }

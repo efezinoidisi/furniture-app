@@ -1,7 +1,7 @@
 export default function PageHeader({ title }: { title: string }) {
   return (
-    <header className=" min-h-28 mb-7 bg-gradient-to-r from-red-200 via-red-300 to-primary/20 flex flex-col justify-center items-center">
-      <h1 className="text-center font-bold text-2xl uppercase tracking-wider md:text-3xl">
+    <header className=" min-h-32 md:min-h-44 mb-3 bg-hero bg-no-repeat bg-center bg-cover flex flex-col justify-center items-center">
+      <h1 className="text-center font-bold text-2xl capitalize tracking-wider md:text-3xl text-white">
         {title}
       </h1>
     </header>

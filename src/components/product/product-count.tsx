@@ -6,9 +6,10 @@ import { useCartStore } from "@/providers/cart-store-provider";
 
 type ProductCountProps = {
   id: string;
+  stock: number;
 };
 
-export default function ProductCount({ id }: ProductCountProps) {
+export default function ProductCount({ id, stock }: ProductCountProps) {
   const [increaseItemQuantity, cart, decreaseItemQuantity] = useCartStore(
     (state) => [state.increaseQuantity, state.cart, state.decreaseQuantity]
   );
@@ -30,7 +31,7 @@ export default function ProductCount({ id }: ProductCountProps) {
       <DefaultButton
         className="p-1 lg:size-10 flex justify-center items-center text-primary disabled:text-grey-300 disabled:pointer-events-none"
         onClick={() => increaseItemQuantity(id)}
-        disabled={!itemInCart}
+        disabled={!itemInCart || product.quantity === stock}
       >
         <Icons.plus />
       </DefaultButton>

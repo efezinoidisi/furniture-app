@@ -11,7 +11,7 @@ export default function Cart(props: CartItem) {
   const { product, quantity } = props;
   const removeFromCart = useCartStore((state) => state.removeFromCart);
 
-  const { name, image, id, discount, price } = product;
+  const { name, image, id, discount, price, stock } = product;
 
   const subtotal =
     (discount ? calculateDiscount(price, discount) : price) * quantity;
@@ -30,7 +30,7 @@ export default function Cart(props: CartItem) {
       <div>
         <h3 className="truncate capitalize font-bold">{name}</h3>
         <ProductPrice price={price} discount={discount} showDiscount={false} />
-        <ProductCount id={id} />
+        <ProductCount id={id} stock={stock} />
       </div>
       <div className="flex items-end justify-between flex-col w-full ">
         <DefaultButton

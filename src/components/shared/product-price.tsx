@@ -1,7 +1,7 @@
 import {
   calculateDiscount,
   formatPriceToString,
-} from '@/utils/helper-functions';
+} from "@/utils/helper-functions";
 
 type ProductPriceProps = {
   price: number;
@@ -17,8 +17,8 @@ export default function ProductPrice({
   const discountedPrice = discount ? calculateDiscount(price, discount) : price;
 
   return (
-    <p className='flex gap-5 py-3 items-center'>
-      <span className='font-bold self-center text-lg lg:text-xl'>
+    <p className="flex gap-5 py-3 items-center">
+      <span className="font-bold self-center text-lg lg:text-xl">
         {formatPriceToString(discountedPrice)}
       </span>
       {discount ? (
@@ -27,7 +27,7 @@ export default function ProductPrice({
         </span>
       ) : null}
       {discount && showDiscount ? (
-        <span className='bg-primary text-white rounded-full px-2 py-3 ml-auto'>{`-${discount}%`}</span>
+        <span className="bg-primary/50 text-white rounded-full px-2 py-3 ml-auto">{`-${discount}%`}</span>
       ) : null}
     </p>
   );

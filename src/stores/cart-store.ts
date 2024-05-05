@@ -19,16 +19,14 @@ export type CartActions = {
 export type CartStoreType = CartState & CartActions;
 
 export const initCartStore = (): CartState => {
-  const supabase = createSupabaseClient();
-
   return { cart: [] };
 };
 
-export const createCartStore = (initState: CartState = { cart: [] }) => {
+export const createCartStore = (initState: CartState = initCartStore()) => {
   return createStore<CartStoreType>()(
     persist(
       (set, get) => ({
-        cart: [],
+        ...initState,
         addToCart: async (product) => {
           // retrieve product from cart cart if it exists
           const cartItem = get().cart.find(

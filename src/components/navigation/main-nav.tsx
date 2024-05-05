@@ -6,7 +6,6 @@ import { useState } from "react";
 import DefaultButton from "../buttons/default-button";
 import Overlay from "../shared/overlay";
 import { useSession } from "../store/contexts/session-context";
-import UserNavDropdown from "../user/user-nav-dropdown";
 import CartLink from "./cart";
 import NavLinks from "./nav-links";
 import WishlistLink from "./wishlist";
@@ -20,7 +19,7 @@ export default function MainNav() {
   };
 
   return (
-    <header className="flex justify-between py-10 w-11/12 lg:w-4/5 mx-auto">
+    <header className="flex justify-between py-10 page-size">
       <div className="flex gap-3 md:gap-7">
         <DefaultButton
           className="text-primary md:hidden link"
@@ -47,7 +46,12 @@ export default function MainNav() {
         <WishlistLink />
         <CartLink />
 
-        <UserNavDropdown />
+        <Link
+          href={"/profile"}
+          className="text-primary rounded-[2rem] px-1 py-2 capitalize relative link group"
+        >
+          <Icons.person className="group-hover:fill-white" />
+        </Link>
       </div>
 
       {showMenu ? (
