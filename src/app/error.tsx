@@ -30,7 +30,7 @@ export default function ErrorPage({ error }: ErrorPageProps) {
         </a>
       </div>
 
-      {error?.message && <p>{error?.message}</p>}
+      {error?.message && <p className="text-center">{error?.message}</p>}
     </main>
   );
 }

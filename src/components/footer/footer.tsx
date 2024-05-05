@@ -13,7 +13,7 @@ export default function Footer() {
   return (
     <footer className="text-grey-100 flex flex-col place-content-center min-h-72 gap-y-10 py-10  mt-9 md:py-16">
       <form
-        className="flex flex-col gap-2 bg-secondary py-5 px-5 md:px-14 lg:px-20"
+        className="flex flex-col gap-2 bg-secondary py-10 px-5 md:px-20 lg:px-32 md:py-16"
         onSubmit={handleSubscription}
       >
         <p className="mb-7 mt-3 text-charcoal text-lg">
@@ -34,64 +34,65 @@ export default function Footer() {
             subscribe
           </DefaultButton>
         </div>
-        <p className="leading-5 text-xs text-balance mt-2 mb-3">
+        <p className="leading-5 text-xs text-balance mt-2 mb-3 text-charcoal">
           By subscribing you agree with our Privacy Policy and provide consent
           to receive updates from our company.
         </p>
       </form>
-
-      <div className="flex items-center gap-2 px-5 md:px-14 lg:px-20 ">
-        <Image
-          src={"/assets/images/logo.svg"}
-          alt="logo"
-          width={40}
-          height={40}
-          className="w-9"
-        />
-        <p>ZFurniture</p>
-      </div>
-
-      <div className="flex justify-between px-5 md:px-14 lg:px-20">
-        <div className="col-span-1">
-          <h5 className="capitalize font-medium text-black mb-3 text-nowrap">
-            about us
-          </h5>
-          <NavLinks
-            navigationLinks={footerData.aboutUs}
-            className="flex flex-col gap-y-3"
-            linkStyle="capitalize text-sm"
+      <div className="flex flex-col gap-y-10 page-size lg:flex-row md:justify-start md:gap-x-8">
+        <div className="flex items-center gap-2 md:self-start ">
+          <Image
+            src={"/assets/images/logo.svg"}
+            alt="logo"
+            width={40}
+            height={40}
+            className="w-9"
           />
+          <p>ZFurniture</p>
         </div>
-        <div className="col-span-1">
-          <h5 className="capitalize font-medium text-black mb-3 text-nowrap">
-            customer support
-          </h5>
-          <NavLinks
-            navigationLinks={footerData.customerSupport}
-            className="flex flex-col gap-y-3"
-            linkStyle="capitalize text-sm"
-          />
-        </div>
-        <div className="col-span-1">
-          <h5 className="capitalize font-medium text-black mb-3 text-nowrap">
-            follow us
-          </h5>
-          <NavLinks
-            navigationLinks={footerData.followUs}
-            className="flex flex-col gap-y-3"
-            linkStyle="capitalize text-sm"
-          />
-        </div>
-      </div>
 
-      <div className="flex lg:justify-between lg:flex-row flex-col items-center lg:items-start gap-2 text-sm px-5 md:px-14 lg:px-20">
-        <p>© {year} ZFurniture. All rights reserved.</p>
-        <div>
-          <NavLinks
-            navigationLinks={footerData.bottomLinks}
-            className="flex gap-5"
-            linkStyle="capitalize"
-          />
+        <div className="flex justify-between md:flex-1">
+          <div className="">
+            <h5 className="capitalize font-medium text-black mb-3 text-nowrap">
+              about us
+            </h5>
+            <NavLinks
+              navigationLinks={footerData.aboutUs}
+              className="flex flex-col gap-y-3"
+              linkStyle="capitalize text-sm"
+            />
+          </div>
+          <div className="">
+            <h5 className="capitalize font-medium text-black mb-3 text-nowrap">
+              customer support
+            </h5>
+            <NavLinks
+              navigationLinks={footerData.customerSupport}
+              className="flex flex-col gap-y-3"
+              linkStyle="capitalize text-sm"
+            />
+          </div>
+          <div className="col-span-1">
+            <h5 className="capitalize font-medium text-black mb-3 text-nowrap">
+              follow us
+            </h5>
+            <NavLinks
+              navigationLinks={footerData.followUs}
+              className="flex flex-col gap-y-3"
+              linkStyle="capitalize text-sm"
+            />
+          </div>
+        </div>
+
+        <div className="md:self-center lg:self-end text-sm">
+          <p>© {year} ZFurniture. All rights reserved.</p>
+          <div className="mt-3">
+            <NavLinks
+              navigationLinks={footerData.bottomLinks}
+              className="flex gap-5"
+              linkStyle="capitalize text-nowrap text-xs md:text-sm"
+            />
+          </div>
         </div>
       </div>
     </footer>
