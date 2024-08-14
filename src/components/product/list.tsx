@@ -3,11 +3,13 @@ import Product from './product';
 type ProductListProps = {
   listItems: ProductType[];
   className?: string;
+  isClient?: boolean;
 };
 
 export default function ProductList({
   listItems,
   className,
+  isClient = true,
 }: ProductListProps) {
   if (!listItems) return null;
 

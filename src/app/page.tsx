@@ -1,19 +1,21 @@
-import Hero from "@/components/homepage/hero";
-import SectionFour from "@/components/homepage/section-four";
-import SectionOne from "@/components/homepage/section-one";
-import SectionThree from "@/components/homepage/section-three";
-import Ellipsis from "@/components/loaders/ellipsis";
-import { getAllProducts } from "@/lib/actions/data";
-import { Suspense } from "react";
+import Hero from '@/components/homepage/hero';
+import SectionFour from '@/components/homepage/section-four';
+import SectionOne from '@/components/homepage/section-one';
+import SectionThree from '@/components/homepage/section-three';
+import { getAllProducts } from '@/lib/actions/data';
 
-export default async function Home() {
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: { type: string };
+}) {
   const products = await getAllProducts();
+
+  const type = searchParams.type;
   return (
-    <main className="flex flex-col gap-y-10 md:gap-y-16">
+    <main className='flex flex-col gap-y-10 md:gap-y-16'>
       <Hero />
-      <Suspense fallback={<Ellipsis />}>
-        <SectionOne products={products?.slice(0, 10) || []} />
-      </Suspense>
+      <SectionOne products={products || []} type={type || ''} />
       <SectionThree />
       <SectionFour />
     </main>
