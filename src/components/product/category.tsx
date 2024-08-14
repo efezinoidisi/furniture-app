@@ -1,25 +1,25 @@
 'use client';
 
 import { categories } from '@/constants/data';
+import Link from 'next/link';
 
 type Props = {
   currentCategory: string;
-  toggleCategory: (key: string, value: string) => void;
 };
 
-export default function Category({ currentCategory, toggleCategory }: Props) {
+export default function Category({ currentCategory }: Props) {
   return (
     <ul className='flex gap-5 overflow-x-scroll hide-scrollbar my-10 md:overflow-x-clip md:flex-wrap'>
       <li
-        role='button'
         className={`${
           currentCategory === ''
             ? 'bg-opacity-100 text-white'
             : 'bg-opacity-[0.15] text-black'
         } bg-black rounded-sl px-3 py-1 cursor-pointer capitalize text-sm md:text-base  md:px-5 text-nowrap`}
-        onClick={() => toggleCategory('type', '')}
       >
-        all
+        <Link href={'/'} scroll={false} prefetch>
+          All
+        </Link>
       </li>
       {categories?.map((category) => {
         const active = category.name === currentCategory;
@@ -32,9 +32,10 @@ export default function Category({ currentCategory, toggleCategory }: Props) {
                 ? 'bg-opacity-100 text-white'
                 : 'bg-opacity-[0.15] text-black'
             } bg-black rounded-sl px-3 py-1 cursor-pointer capitalize text-sm md:text-base  md:px-5 text-nowrap`}
-            onClick={() => toggleCategory('type', category.name)}
           >
-            {category.name}
+            <Link href={`?type=${category.name}`} scroll={false} prefetch>
+              {category.name}
+            </Link>
           </li>
         );
       })}

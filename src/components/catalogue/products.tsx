@@ -6,7 +6,7 @@ import Filter from './filter';
 
 import ProductList from '../product/list';
 
-import { CategoryType, ProductType } from '@/types/product';
+import { ProductType } from '@/types/product';
 import { useMemo } from 'react';
 import Search from './search';
 
@@ -34,7 +34,9 @@ export default function Products({ products }: ProductsProps) {
       const isWithinPriceRange =
         product.price >= +minPrice && product.price <= +maxPrice;
 
-      const isProductName = product.name.includes(query);
+      const isProductName = product.name
+        .toLocaleLowerCase()
+        .includes(query.toLocaleLowerCase());
       return (
         includesCategory && includesColor && isWithinPriceRange && isProductName
       );
