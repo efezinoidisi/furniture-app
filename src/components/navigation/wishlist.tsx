@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { Icons } from "@/lib/icons";
-import useWishlistStore from "@/stores/wishlist-store";
-import Link from "next/link";
+import { Icons } from '@/lib/icons';
+import useWishlistStore from '@/stores/wishlist-store';
+import Link from 'next/link';
 
 export default function WishlistLink() {
   const wishlist = useWishlistStore((state) => state.wishlist);
@@ -11,14 +11,15 @@ export default function WishlistLink() {
 
   return (
     <Link
-      href={"/wishlist"}
-      className="text-primary rounded-[2rem] px-1 py-2 capitalize relative link group"
+      href={'/wishlist'}
+      className='text-primary rounded-[2rem] px-1 py-2 capitalize relative link group'
       prefetch
+      aria-label='view wishlist'
     >
-      <Icons.heart className="group-hover:fill-white" />
+      <Icons.heart className='group-hover:fill-white' />
       {size ? (
-        <span className="absolute top-0 right-0 rounded-full bg-primary text-center text-white text-xs size-5 flex justify-center items-center">
-          {size > 10 ? "10+" : size}
+        <span className='absolute top-0 right-0 rounded-full bg-primary text-center text-white text-xs size-5 flex justify-center items-center'>
+          {size > 10 ? '10+' : size}
         </span>
       ) : null}
     </Link>

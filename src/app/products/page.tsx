@@ -1,8 +1,8 @@
-import Products from "@/components/catalogue/products";
-import Top from "@/components/catalogue/top";
-import Ellipsis from "@/components/loaders/ellipsis";
-import { getAllProducts } from "@/lib/actions/data";
-import { Suspense } from "react";
+import Products from '@/components/catalogue/products';
+import Top from '@/components/catalogue/top';
+import Ellipsis from '@/components/loaders/ellipsis';
+import { getAllProducts } from '@/lib/actions/data';
+import { Suspense } from 'react';
 
 export default async function page() {
   const products = await getAllProducts();

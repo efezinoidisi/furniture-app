@@ -26,7 +26,6 @@ export default function Category({ currentCategory }: Props) {
         return (
           <li
             key={category.id}
-            role='button'
             className={`${
               active
                 ? 'bg-opacity-100 text-white'

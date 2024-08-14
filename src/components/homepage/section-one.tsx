@@ -1,16 +1,16 @@
+import { getAllProducts } from '@/lib/actions/data';
 import { Icons } from '@/lib/icons';
-import { ProductType } from '@/types/product';
 import Link from 'next/link';
 import Category from '../product/category';
 import ProductList from '../product/list';
 
 type SectionOneProps = {
-  products: ProductType[];
   type: string;
 };
 
-export default function SectionOne({ products, type }: SectionOneProps) {
-  // const { searchParams, updateSearchParams } = useSearchParams();
+export default async function SectionOne({ type }: SectionOneProps) {
+  const products = (await getAllProducts()) || [];
+
   const currentCategory = type;
   const filteredProducts = products.filter((product) => {
     return currentCategory
