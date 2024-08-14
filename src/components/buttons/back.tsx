@@ -1,12 +1,12 @@
-"use client";
-import { Icons } from "@/lib/icons";
-import { mergeStyles } from "@/utils/style-helpers";
-import { useRouter } from "next/navigation";
-import DefaultButton from "./default-button";
+'use client';
+import { Icons } from '@/lib/icons';
+import { mergeStyles } from '@/utils/style-helpers';
+import { useRouter } from 'next/navigation';
+import DefaultButton from './default-button';
 
 export default function Back({
   isTextVisibile = false,
-  className = "",
+  className = '',
 }: {
   isTextVisibile?: boolean;
   className?: string;
@@ -15,9 +15,10 @@ export default function Back({
   return (
     <DefaultButton
       onClick={back}
-      className={mergeStyles("w-fit md:hidden", className)}
+      className={mergeStyles('w-fit md:hidden', className)}
+      aria-label='go back'
     >
-      {isTextVisibile ? "go back" : <Icons.left />}
+      {isTextVisibile ? 'go back' : <Icons.left />}
     </DefaultButton>
   );
 }

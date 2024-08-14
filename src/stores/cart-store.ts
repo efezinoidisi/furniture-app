@@ -31,7 +31,7 @@ export const createCartStore = (initState: CartState = initCartStore()) => {
           // retrieve product from cart cart if it exists
           const cartItem = get().cart.find(
             (item) => item.product.id === product.id
-          );
+          )?.product.id;
 
           // store prev cart state to revert if supabase update fails
           const prevCartState = get().cart;

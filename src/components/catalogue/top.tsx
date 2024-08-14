@@ -1,13 +1,13 @@
 'use client';
 
+import { Icons } from '@/lib/icons';
 import { Suspense, useState } from 'react';
 import BreadCrump from '../breadcrumb/breadcrump';
 import Back from '../buttons/back';
 import DefaultButton from '../buttons/default-button';
-import { Icons } from '@/lib/icons';
-import Filter from './filter';
-import Overlay from '../shared/overlay';
 import Ellipsis from '../loaders/ellipsis';
+import Overlay from '../shared/overlay';
+import Filter from './filter';
 
 export default function Top() {
   const [showFilter, setShowFilter] = useState(false);
@@ -22,7 +22,11 @@ export default function Top() {
       <h2 className='sr-only'>products catalogue</h2>
       <div className='flex items-center justify-between my-3'>
         <BreadCrump items={[{ path: '/products', title: 'all furnitures' }]} />
-        <DefaultButton className='md:hidden' onClick={toggleFilter}>
+        <DefaultButton
+          className='md:hidden'
+          onClick={toggleFilter}
+          aria-label='filter'
+        >
           <Icons.filter />
         </DefaultButton>
       </div>
